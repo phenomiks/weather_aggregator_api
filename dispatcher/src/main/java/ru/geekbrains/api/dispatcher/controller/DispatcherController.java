@@ -28,12 +28,20 @@ public class DispatcherController {
     public ResponseEntity<?> registerUser(@RequestBody ObjectNode json) {
         validateRequestUtils.validateUserRegistrationParameters(json);
 
-//        RestTemplate restTemplate = new RestTemplate();
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<String> request = new HttpEntity<>(json.toString(), headers);
-//        ObjectNode response =
-//                restTemplate.postForObject("http://localhost:8092/api/v1/auth/register", request, ObjectNode.class);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<>(json.toString(), headers);
+        ObjectNode response =
+                restTemplate.postForObject("http://localhost:8092/api/v1/auth/register", request, ObjectNode.class);
+        return ResponseEntity.ok(response);
+    }
+
+    //    http://localhost:8090/api/v1/dispatcher/registerDemo
+    @PostMapping(value = "/registerDemo")
+    public ResponseEntity<?> registerUserDemo(@RequestBody ObjectNode json) {
+        validateRequestUtils.validateUserRegistrationParameters(json);
+
         ObjectNode response = JsonResponseGenerator.generateSuccessResponseJson();
         return ResponseEntity.ok(response);
     }
