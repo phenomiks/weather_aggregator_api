@@ -14,7 +14,7 @@ public class WebExceptionHandler {
 
     @ExceptionHandler
     @ResponseBody
-    public ResponseEntity<?> handleAuthApiException(DispatcherApiException exception) {
+    public ResponseEntity<?> handleDispatcherApiException(DispatcherApiException exception) {
         return generateErrorResponse(exception.getNode());
     }
 
