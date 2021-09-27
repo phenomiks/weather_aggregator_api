@@ -1,26 +1,34 @@
 package ru.geekbrains.api.data_api.application.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.api.data_api.application.exception.DataApiException;
 import ru.geekbrains.api.data_api.application.exception.ErrorCodes;
 import ru.geekbrains.api.data_api.request.DataParameters;
 
+import java.util.ArrayList;
+
 
 @Component
 public class ValidateRequestUtils {
-    public DataParameters validateUserRegistrationParameters(ObjectNode parameters) {
+    public DataParameters validateUserRegistrationParameters(ObjectNode parameters) throws JsonProcessingException {
         int parametersCount = 2;
         checkJsonFieldsCount(parameters, parametersCount);
 
         JsonNode cityField = checkJsonField(parameters, "city");
         JsonNode servicesField = checkJsonField(parameters, "services");
 
-        String city = isStringJsonField(cityField);
-        String services = isStringJsonField(servicesField);
+        isStringJsonField(cityField);
+        isArrayJsonField(servicesField);
 
-        return new DataParameters(city, services);
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayList<String> city = objectMapper.readValue(servicesField.toString(),ArrayList.class);
+        ArrayList<String> services = objectMapper.readValue(servicesField.toString(),ArrayList.class);
+
+        return new DataParameters(city,services);
     }
 
     private void checkJsonFieldsCount(ObjectNode parameters, int count) {
@@ -56,4 +64,15 @@ public class ValidateRequestUtils {
 
         throw new DataApiException(field + " value must be a string", body);
     }
+
+    private static void isArrayJsonField(JsonNode field) {
+        if (!field.isArray()) {
+            ObjectNode body = JsonResponseGenerator
+                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                            field + " value must be a array");
+
+            throw new DataApiException(field + " value must be a array", body);
+        }
+    }
+
 }

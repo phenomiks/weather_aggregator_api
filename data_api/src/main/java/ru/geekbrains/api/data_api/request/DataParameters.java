@@ -1,20 +1,21 @@
 package ru.geekbrains.api.data_api.request;
 
+import java.util.ArrayList;
+
 public class DataParameters {
-    private final String city;
-    private final String services;
+    private final ArrayList<String> city;
+    private final ArrayList<String> services;
 
-
-    public DataParameters(String city, String services) {
+    public DataParameters(ArrayList<String> city, ArrayList<String> services) {
         this.city = city;
         this.services = services;
     }
 
-    public String getCity() {
+    public ArrayList<String> getCity() {
         return city;
     }
 
-    public String getServices() {
+    public ArrayList getServices() {
         return services;
     }
 }

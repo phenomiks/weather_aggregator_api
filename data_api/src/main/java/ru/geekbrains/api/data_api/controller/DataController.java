@@ -1,5 +1,6 @@
 package ru.geekbrains.api.data_api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class DataController {
         this.validateRequestUtils = validateRequestUtils;
     }
 
-    @PostMapping(value = "/request")
-    public ResponseEntity<?> cityData(@RequestBody ObjectNode json) {
+    @PostMapping(value = "/get-weather")
+    public ResponseEntity<?> cityData(@RequestBody ObjectNode json) throws JsonProcessingException {
         DataParameters dataParameters = validateRequestUtils.validateUserRegistrationParameters(json);
 
         ObjectNode response = JsonResponseGenerator.generateSuccessResponseJson();

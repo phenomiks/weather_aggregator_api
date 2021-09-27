@@ -14,7 +14,7 @@ import ru.geekbrains.api.data_api.application.utils.JsonResponseGenerator;
 public class WebExceptionHandler {
     @ExceptionHandler
     @ResponseBody
-    public ResponseEntity<?> handleAuthApiException(DataApiException exception) {
+    public ResponseEntity<?> handleDataApiException(DataApiException exception) {
         return generateErrorResponse(exception.getNode());
     }
 
