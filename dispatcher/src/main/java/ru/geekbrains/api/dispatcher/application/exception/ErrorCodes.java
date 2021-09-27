@@ -3,7 +3,7 @@ package ru.geekbrains.api.dispatcher.application.exception;
 public enum ErrorCodes {
     JSON_ERROR(ErrorCodes.REPLACE),
     JSON_VALIDATION_ERROR(ErrorCodes.REPLACE);
-//    USER_NOT_FOUND("User with login " + ErrorCodes.REPLACE + " not found");
+
 
     private final static String REPLACE = "<REPLACE>";
 
