@@ -1,4 +1,4 @@
-package ru.geekbrains.api.auth_api.controller;
+package ru.geekbrains.api.auth_api.controller.interfaces;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.ResponseEntity;
