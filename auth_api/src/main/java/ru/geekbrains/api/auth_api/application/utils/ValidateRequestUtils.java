@@ -2,6 +2,7 @@ package ru.geekbrains.api.auth_api.application.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.api.auth_api.application.exception.AuthApiException;
 import ru.geekbrains.api.auth_api.application.exception.ErrorCodes;
@@ -19,6 +20,7 @@ public class ValidateRequestUtils {
 
         String login = isStringJsonField(loginField);
         String email = isStringJsonField(emailField);
+        isValidEmail(email);
         char[] password = isStringJsonField(passwordField).toCharArray();
 
         return new UserRegParams(login, email, password);
@@ -50,5 +52,15 @@ public class ValidateRequestUtils {
         throw new AuthApiException(field + " value must be a string",
                 ErrorCodes.JSON_VALIDATION_ERROR,
                 field + " value must be a string");
+    }
+
+    private void isValidEmail(String email) {
+        boolean isValid = EmailValidator.getInstance().isValid(email);
+
+        if (!isValid) {
+            throw new AuthApiException("Email" + email + " is not valid",
+                    ErrorCodes.EMAIL_VALIDATION_ERROR,
+                    email);
+        }
     }
 }

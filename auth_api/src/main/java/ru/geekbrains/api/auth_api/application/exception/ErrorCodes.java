@@ -3,6 +3,7 @@ package ru.geekbrains.api.auth_api.application.exception;
 public enum ErrorCodes {
     JSON_ERROR(ErrorCodes.REPLACE),
     JSON_VALIDATION_ERROR(ErrorCodes.REPLACE),
+    EMAIL_VALIDATION_ERROR("Email " + ErrorCodes.REPLACE + " is not valid"),
     USER_NOT_FOUND("User with login " + ErrorCodes.REPLACE + " not found");
 
     private final static String REPLACE = "<REPLACE>";
