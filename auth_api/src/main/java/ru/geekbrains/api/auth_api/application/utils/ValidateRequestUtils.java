@@ -19,18 +19,16 @@ public class ValidateRequestUtils {
 
         String login = isStringJsonField(loginField);
         String email = isStringJsonField(emailField);
-        String password = isStringJsonField(passwordField);
+        char[] password = isStringJsonField(passwordField).toCharArray();
 
         return new UserRegParams(login, email, password);
     }
 
     private void checkJsonFieldsCount(ObjectNode parameters, int count) {
         if (parameters.size() != count) {
-            ObjectNode body = JsonResponseGenerator
-                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                            "Check the number of fields in the message");
-
-            throw new AuthApiException("Validation input parameters size not equals " + count, body);
+            throw new AuthApiException("Validation input parameters size not equals " + count,
+                    ErrorCodes.JSON_VALIDATION_ERROR,
+                    "Check the number of fields in the message");
         }
     }
 
@@ -39,11 +37,9 @@ public class ValidateRequestUtils {
             return parameters.path(fieldName);
         }
 
-        ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                        "Not found " + fieldName + " field");
-
-        throw new AuthApiException("Not found " + fieldName + " field", body);
+        throw new AuthApiException("Not found " + fieldName + " field",
+                ErrorCodes.JSON_VALIDATION_ERROR,
+                "Not found " + fieldName + " field");
     }
 
     private String isStringJsonField(JsonNode field) {
@@ -51,10 +47,8 @@ public class ValidateRequestUtils {
             return field.textValue();
         }
 
-        ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                        field + " value must be a string");
-
-        throw new AuthApiException(field + " value must be a string", body);
+        throw new AuthApiException(field + " value must be a string",
+                ErrorCodes.JSON_VALIDATION_ERROR,
+                field + " value must be a string");
     }
 }

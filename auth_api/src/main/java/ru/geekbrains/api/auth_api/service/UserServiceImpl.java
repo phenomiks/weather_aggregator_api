@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(String login, String email, String password) {
+    public User saveUser(String login, String email, char[] password) {
         User user = new User(login, email, password);
 
         return userRepository.save(user);

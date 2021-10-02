@@ -28,7 +28,7 @@ public class User {
     private String email;
 
     @Column(name = "password", length = 64, nullable = false)
-    private String password; // TODO char[]
+    private char[] password;
 
     @Column(name = "archive")
     private Boolean archive = false;
@@ -47,7 +47,7 @@ public class User {
     public User() {
     }
 
-    public User(String login, String email, String password) {
+    public User(String login, String email, char[] password) {
         this.login = login;
         this.email = email;
         this.password = password;
@@ -77,11 +77,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 

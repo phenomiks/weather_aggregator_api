@@ -1,13 +1,14 @@
 package ru.geekbrains.api.auth_api.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.api.auth_api.application.utils.JsonResponseGenerator;
 import ru.geekbrains.api.auth_api.application.utils.JwtTokenUtil;
+import ru.geekbrains.api.auth_api.model.Token;
 import ru.geekbrains.api.auth_api.model.User;
+import ru.geekbrains.api.auth_api.model.dto.TokenDto;
 import ru.geekbrains.api.auth_api.model.request.UserRegParams;
+import ru.geekbrains.api.auth_api.model.response.ReportResponse;
+import ru.geekbrains.api.auth_api.model.response.Response;
 import ru.geekbrains.api.auth_api.service.interfaces.UserServiceFacade;
 
 import java.util.Optional;
@@ -27,25 +28,17 @@ public class UserTokenService implements UserServiceFacade {
     }
 
     @Override
-    public ObjectNode generateKeyResponse(UserRegParams regParams) {
+    public Response generateKeyResponse(UserRegParams regParams) {
         Optional<User> optionalUser = userService.findByLogin(regParams.getLogin());
         User user = (optionalUser.isEmpty())
                 ? userService.saveUser(regParams.getLogin(), regParams.getEmail(), regParams.getPassword())
                 : optionalUser.get();
 
-        String token = jwtTokenUtil.generateToken(user.getLogin());
+        String key = jwtTokenUtil.generateToken(user.getLogin());
 
-        tokenService.saveToken(user, token);
+        Token token = tokenService.saveToken(user, key);
+        TokenDto tokenDto = new TokenDto(token);
 
-        return JsonResponseGenerator.generateReportResponseJson(generateKeyReport(token));
-    }
-
-    private ObjectNode generateKeyReport(String token) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        ObjectNode report = mapper.createObjectNode();
-        report.put("key", token);
-
-        return report;
+        return new ReportResponse(tokenDto);
     }
 }

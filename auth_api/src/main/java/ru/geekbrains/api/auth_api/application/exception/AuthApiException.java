@@ -1,16 +1,16 @@
 package ru.geekbrains.api.auth_api.application.exception;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import ru.geekbrains.api.auth_api.model.response.ErrorResponse;
 
 public class AuthApiException extends RuntimeException {
-    private final ObjectNode node;
+    private final ErrorResponse response;
 
-    public AuthApiException(String message, ObjectNode node) {
+    public AuthApiException(String message, ErrorCodes errorCode, String replaceText) {
         super(message);
-        this.node = node;
+        this.response = new ErrorResponse(errorCode, replaceText);
     }
 
-    public ObjectNode getNode() {
-        return node;
+    public ErrorResponse getResponse() {
+        return response;
     }
 }

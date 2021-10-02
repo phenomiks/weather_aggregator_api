@@ -9,7 +9,7 @@ import ru.geekbrains.api.auth_api.service.interfaces.TokenService;
 
 @Service
 public class TokenServiceImpl implements TokenService {
-    private TokenRepository tokenRepository;
+    private final TokenRepository tokenRepository;
 
     @Autowired
     public TokenServiceImpl(TokenRepository tokenRepository) {
