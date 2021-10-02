@@ -14,7 +14,7 @@ public class ValidateRequestUtils {
         int parametersCount = 3;
         checkJsonFieldsCount(parameters, parametersCount);
 
-        JsonNode loginField = checkJsonField(parameters, "login");
+        JsonNode loginField = checkJsonField(parameters, "login"); // TODO remove business exceptions
         JsonNode emailField = checkJsonField(parameters, "email");
         JsonNode passwordField = checkJsonField(parameters, "password");
 
@@ -39,9 +39,7 @@ public class ValidateRequestUtils {
             return parameters.path(fieldName);
         }
 
-        throw new AuthApiException("Not found " + fieldName + " field",
-                ErrorCodes.JSON_VALIDATION_ERROR,
-                "Not found " + fieldName + " field");
+        throw new AuthApiException(ErrorCodes.JSON_VALIDATION_ERROR, "Not found " + fieldName + " field");
     }
 
     private String isStringJsonField(JsonNode field) {
@@ -49,18 +47,14 @@ public class ValidateRequestUtils {
             return field.textValue();
         }
 
-        throw new AuthApiException(field + " value must be a string",
-                ErrorCodes.JSON_VALIDATION_ERROR,
-                field + " value must be a string");
+        throw new AuthApiException(ErrorCodes.JSON_VALIDATION_ERROR, field + " value must be a string");
     }
 
     private void isValidEmail(String email) {
         boolean isValid = EmailValidator.getInstance().isValid(email);
 
         if (!isValid) {
-            throw new AuthApiException("Email" + email + " is not valid",
-                    ErrorCodes.EMAIL_VALIDATION_ERROR,
-                    email);
+            throw new AuthApiException(ErrorCodes.EMAIL_VALIDATION_ERROR, email);
         }
     }
 }

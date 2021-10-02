@@ -5,9 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.geekbrains.api.auth_api.model.response.Response;
 
 @RequestMapping(value = "/api/v1/auth")
 public interface AuthController {
     @PostMapping(value = "/register")
-    ResponseEntity<?> registerUser(@RequestBody ObjectNode json);
+    ResponseEntity<Response> registerUser(@RequestBody ObjectNode json);
 }

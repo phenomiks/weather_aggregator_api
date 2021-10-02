@@ -6,7 +6,7 @@ public enum ErrorCodes {
     EMAIL_VALIDATION_ERROR("Email " + ErrorCodes.REPLACE + " is not valid"),
     USER_NOT_FOUND("User with login " + ErrorCodes.REPLACE + " not found");
 
-    private final static String REPLACE = "<REPLACE>";
+    private static final String REPLACE = "<REPLACE>";
 
     private final String message;
 

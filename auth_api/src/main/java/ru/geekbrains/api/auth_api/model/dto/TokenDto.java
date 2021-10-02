@@ -2,11 +2,15 @@ package ru.geekbrains.api.auth_api.model.dto;
 
 import ru.geekbrains.api.auth_api.model.Token;
 
-public class TokenDto {
+import java.io.Serializable;
+
+public class TokenDto implements Serializable {
+    private static final long serialVersionUID = -4912517095299765463L;
+
     private String key;
 
     public TokenDto(Token token) {
-        this.key = token.getToken();
+        this.key = token.getTokenValue();
     }
 
     public String getKey() {

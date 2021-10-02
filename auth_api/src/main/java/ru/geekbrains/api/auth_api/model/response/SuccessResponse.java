@@ -1,6 +1,10 @@
 package ru.geekbrains.api.auth_api.model.response;
 
-public class SuccessResponse extends Response {
+import java.io.Serializable;
+
+public class SuccessResponse extends Response implements Serializable {
+    private static final long serialVersionUID = 4029985365514293281L;
+
     public static final String SUCCESS_STATUS = "success";
 
     public SuccessResponse() {

@@ -2,7 +2,11 @@ package ru.geekbrains.api.auth_api.model.response;
 
 import ru.geekbrains.api.auth_api.application.exception.ErrorCodes;
 
-public class Error {
+import java.io.Serializable;
+
+public class Error implements Serializable {
+    private static final long serialVersionUID = 2612116727050041763L;
+
     private ErrorCodes errorCode;
     private String message;
 

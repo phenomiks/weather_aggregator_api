@@ -1,9 +1,13 @@
 package ru.geekbrains.api.auth_api.model.response;
 
-public abstract class Response {
-    private String status;
+import java.io.Serializable;
 
-    public Response(String status) {
+public abstract class Response implements Serializable {
+    private static final long serialVersionUID = -699363788573225795L;
+
+    private final String status;
+
+    protected Response(String status) {
         this.status = status;
     }
 

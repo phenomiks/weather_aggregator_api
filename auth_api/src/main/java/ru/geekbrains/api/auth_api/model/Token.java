@@ -22,14 +22,14 @@ public class Token {
     private User user;
 
     @Column(name = "token", length = Integer.MAX_VALUE, nullable = false, unique = true)
-    private String token;
+    private String tokenValue;
 
     public Token() {
     }
 
-    public Token(User user, String token) {
+    public Token(User user, String tokenValue) {
         this.user = user;
-        this.token = token;
+        this.tokenValue = tokenValue;
     }
 
     public Long getId() {
@@ -48,17 +48,17 @@ public class Token {
         this.user = user;
     }
 
-    public String getToken() {
-        return token;
+    public String getTokenValue() {
+        return tokenValue;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setTokenValue(String tokenValue) {
+        this.tokenValue = tokenValue;
     }
 
     @Override
     public String toString() {
         return String.format("Token{id=%d, User{login=%s}, token=%s}",
-                id, user.getLogin(), token);
+                id, user.getLogin(), tokenValue);
     }
 }

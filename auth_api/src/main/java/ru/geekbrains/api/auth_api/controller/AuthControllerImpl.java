@@ -22,7 +22,7 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
-    public ResponseEntity<?> registerUser(ObjectNode json) {
+    public ResponseEntity<Response> registerUser(ObjectNode json) {
         UserRegParams userRegParams = validateRequestUtils.validateUserRegistrationParameters(json);
 
         Response response = userTokenService.generateKeyResponse(userRegParams);
