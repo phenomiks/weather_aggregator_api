@@ -21,7 +21,7 @@ public class DataControllerImpl implements DataController {
     }
 
     @Override
-    public ResponseEntity<ObjectNode> cityData(ObjectNode json) throws JsonProcessingException {
+    public ResponseEntity<ObjectNode> cityData(ObjectNode json) {
         DataParameters dataParameters = validateRequestUtils.validateUserRegistrationParameters(json);
         ObjectNode response = JsonResponseGenerator.generateSuccessResponseJson();
 
