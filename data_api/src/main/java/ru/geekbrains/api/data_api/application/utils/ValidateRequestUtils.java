@@ -24,7 +24,7 @@ public class ValidateRequestUtils {
 
         String city  = isStringJsonField(cityField);
         isArrayJsonField(servicesField);
-        isArrayJsonFieldNotNull(servicesField);
+        isArrayJsonFieldNotEmpty(servicesField);
         isArrayStringJsonField(servicesField);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -77,7 +77,7 @@ public class ValidateRequestUtils {
         }
     }
 
-    private static void isArrayJsonFieldNotNull(JsonNode field) {
+    private static void isArrayJsonFieldNotEmpty(JsonNode field) {
         if (field.isEmpty()) {
             ObjectNode body = JsonResponseGenerator
                     .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
