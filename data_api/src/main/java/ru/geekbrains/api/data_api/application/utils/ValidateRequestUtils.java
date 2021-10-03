@@ -24,6 +24,7 @@ public class ValidateRequestUtils {
 
         isStringJsonField(cityField);
         isArrayJsonField(servicesField);
+        isArrayStringJsonField(cityField);
         isArrayStringJsonField(servicesField);
 
         ObjectMapper objectMapper = new ObjectMapper();
