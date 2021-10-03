@@ -24,6 +24,7 @@ public class ValidateRequestUtils {
 
         String city  = isStringJsonField(cityField);
         isArrayJsonField(servicesField);
+        isArrayJsonFieldNotNull(servicesField);
         isArrayStringJsonField(servicesField);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -73,6 +74,16 @@ public class ValidateRequestUtils {
                             field + " value must be a array");
 
             throw new DataApiException(field + " value must be a array", body);
+        }
+    }
+
+    private static void isArrayJsonFieldNotNull(JsonNode field) {
+        if (field.isEmpty()) {
+            ObjectNode body = JsonResponseGenerator
+                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                            field + " the value should not be empty");
+
+            throw new DataApiException(field + " the value should not be empty", body);
         }
     }
 
