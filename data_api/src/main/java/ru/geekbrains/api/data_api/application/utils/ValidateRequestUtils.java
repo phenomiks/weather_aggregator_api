@@ -37,6 +37,7 @@ public class ValidateRequestUtils {
                             "Problem with format translation");
             throw new DataApiException("Json format error ",body );
         }
+
         return new DataParameters(city,services);
     }
 
