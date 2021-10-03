@@ -24,11 +24,10 @@ public class ValidateRequestUtils {
 
         isStringJsonField(cityField);
         isArrayJsonField(servicesField);
-        isArrayStringJsonField(cityField);
         isArrayStringJsonField(servicesField);
 
+        String city = isStringJsonField(cityField);
         ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<String> city = objectMapper.readValue(servicesField.toString(),ArrayList.class);
         ArrayList<String> services = objectMapper.readValue(servicesField.toString(),ArrayList.class);
 
         return new DataParameters(city,services);
