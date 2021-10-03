@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @Component
 public class ValidateRequestUtils {
-    public DataParameters validateUserRegistrationParameters(ObjectNode parameters) throws JsonProcessingException {
+    public DataParameters validateUserRegistrationParameters(ObjectNode parameters) {
         int parametersCount = 2;
         checkJsonFieldsCount(parameters, parametersCount);
 
@@ -28,7 +28,15 @@ public class ValidateRequestUtils {
         isArrayStringJsonField(servicesField);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<String> services = objectMapper.readValue(servicesField.toString(),ArrayList.class);
+        ArrayList<String> services = null;
+        try {
+            services = objectMapper.readValue(servicesField.toString(), ArrayList.class);
+        } catch (JsonProcessingException e) {
+            ObjectNode body = JsonResponseGenerator
+                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                            "Problem with format translation");
+            throw new DataApiException("Json format error ",body );
+        }
 
         return new DataParameters(city,services);
     }
