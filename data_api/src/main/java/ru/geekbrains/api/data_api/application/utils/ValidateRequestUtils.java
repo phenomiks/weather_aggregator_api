@@ -32,7 +32,8 @@ public class ValidateRequestUtils {
         try {
             services = objectMapper.readValue(servicesField.toString(), ArrayList.class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            throw new DataApiException("Json formating error", parameters);
+
         }
 
         return new DataParameters(city,services);
