@@ -22,11 +22,10 @@ public class ValidateRequestUtils {
         JsonNode cityField = checkJsonField(parameters, "city");
         JsonNode servicesField = checkJsonField(parameters, "services");
 
-        isStringJsonField(cityField);
+        String city  = isStringJsonField(cityField);
         isArrayJsonField(servicesField);
         isArrayStringJsonField(servicesField);
 
-        String city = isStringJsonField(cityField);
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayList<String> services = objectMapper.readValue(servicesField.toString(),ArrayList.class);
 
