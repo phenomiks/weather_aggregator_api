@@ -7,15 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService {
+public class LoaderService {
 
-    @Value("${authApi.register}")
+    @Value("${loader.getWeather}")
     private String url;
 
     private final RestService restService;
 
     @Autowired
-    public AuthService(RestService restService) {
+    public LoaderService(RestService restService) {
         this.restService = restService;
     }
 

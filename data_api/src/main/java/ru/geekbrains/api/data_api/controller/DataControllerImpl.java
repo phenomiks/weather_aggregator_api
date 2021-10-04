@@ -3,23 +3,19 @@ package ru.geekbrains.api.data_api.controller;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.api.data_api.application.utils.JsonResponseGenerator;
 import ru.geekbrains.api.data_api.application.utils.ValidateRequestUtils;
 import ru.geekbrains.api.data_api.request.DataParameters;
-import ru.geekbrains.api.data_api.services.AuthService;
 
 
 @RestController
 public class DataControllerImpl implements DataController {
     private final ValidateRequestUtils validateRequestUtils;
-    private final AuthService authService;
 
     @Autowired
-    public DataControllerImpl(ValidateRequestUtils validateRequestUtils, AuthService authService) {
+    public DataControllerImpl(ValidateRequestUtils validateRequestUtils) {
         this.validateRequestUtils = validateRequestUtils;
-        this.authService = authService;
     }
 
     @Override
@@ -28,10 +24,5 @@ public class DataControllerImpl implements DataController {
         ObjectNode response = JsonResponseGenerator.generateSuccessResponseJson();
 
         return ResponseEntity.ok(response);
-    }
-
-    @Override
-    public ResponseEntity<?> registerUser(@RequestBody ObjectNode json)  {
-        return authService.registerUser(json);
     }
 }

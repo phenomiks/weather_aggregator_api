@@ -16,17 +16,15 @@ public class RestService {
     private final RestTemplate restTemplate;
 
     @Autowired
-    public RestService(RestTemplateConfig restTemplateConfig) {
-        this.restTemplate = restTemplateConfig.restTemplate();
+    public RestService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     public ResponseEntity<?> doPost(ObjectNode json, String url) {
         try {
             return restTemplate.postForEntity(url, json, ObjectNode.class);
-        } catch (HttpClientErrorException he) {
-            return new ResponseEntity<>(he.getResponseBodyAsString(), he.getStatusCode());
         } catch (ResourceAccessException e) {
-            return new ResponseEntity<>("CONNECTION_REFUSED", HttpStatus.valueOf(409));
+            return null;
         }
     }
 }
