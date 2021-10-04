@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpStatusCodeException;
+import ru.geekbrains.api.dispatcher.application.utils.ExceptionHandlerForPostRequester;
 import ru.geekbrains.api.dispatcher.application.utils.ValidateRequestUtils;
 import ru.geekbrains.api.dispatcher.service.AuthService;
 import ru.geekbrains.api.dispatcher.service.DataService;
@@ -27,13 +29,21 @@ public class DispatcherController {
     //    http://localhost:8090/api/v1/dispatcher/register
     @PostMapping(value = "/register")
     public ResponseEntity<?> registerUser(@RequestBody ObjectNode json) {
-        return authService.registerUser(json);
+        try {
+            return authService.registerUser(json);
+        } catch (HttpStatusCodeException e) {
+           return ExceptionHandlerForPostRequester.checkResponseHttpStatus(e);
+        }
     }
 
     //    http://localhost:8090/api/v1/dispatcher/get-weather
-        @PostMapping(value = "/get-weather")
+    @PostMapping(value = "/get-weather")
     public ResponseEntity<?> getWeather(@RequestBody ObjectNode json) {
-            validateRequestUtils.validateUserRegistrationParameters(json);
+        validateRequestUtils.validateUserRegistrationParameters(json);
+        try {
             return dataService.getWeather(json);
+        } catch (HttpStatusCodeException e) {
+            return ExceptionHandlerForPostRequester.checkResponseHttpStatus(e);
+        }
     }
 }

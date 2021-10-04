@@ -2,13 +2,10 @@ package ru.geekbrains.api.dispatcher.service;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
-import ru.geekbrains.api.dispatcher.config.RestTemplateConfig;
 
 @Component
 public class PostRequester {
@@ -16,18 +13,15 @@ public class PostRequester {
     private final RestTemplate restTemplate;
 
     @Autowired
-    public PostRequester(RestTemplateConfig restTemplateConfig) {
-        this.restTemplate = restTemplateConfig.restTemplate();
+    public PostRequester(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     public ResponseEntity<?> doPost(ObjectNode json, String url) {
         try {
-            return restTemplate.postForEntity(url, json, String.class);
-        } catch (HttpStatusCodeException e) {
-            return ResponseEntity.status(e.getRawStatusCode()).headers(e.getResponseHeaders())
-                    .body(e.getResponseBodyAsString());
+            return restTemplate.postForEntity(url, json, ObjectNode.class);
         } catch (ResourceAccessException e) {
-            return new ResponseEntity<>("CONNECTION_REFUSED", HttpStatus.valueOf(409));
+            return null;
         }
     }
 }

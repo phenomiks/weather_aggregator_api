@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.api.dispatcher.application.utils.ExceptionHandlerForPostRequester;
 
 @Service
 public class AuthService {
@@ -20,6 +21,10 @@ public class AuthService {
     }
 
     public ResponseEntity<?> registerUser(ObjectNode json){
-        return postRequester.doPost(json, urlRegister);
+        ResponseEntity<?> responseEntity = postRequester.doPost(json, urlRegister);
+        if (responseEntity == null){
+            ExceptionHandlerForPostRequester.timeOutException();
+        }
+        return responseEntity;
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.api.dispatcher.application.utils.ExceptionHandlerForPostRequester;
 
 @Service
 public class DataService {
@@ -21,6 +22,10 @@ public class DataService {
 
     public ResponseEntity<?> getWeather(ObjectNode json){
         json.remove("key");
-        return postRequester.doPost(json, urlGetWeather);
+        ResponseEntity<?> responseEntity = postRequester.doPost(json, urlGetWeather);
+        if (responseEntity == null){
+            ExceptionHandlerForPostRequester.timeOutException();
+        }
+        return responseEntity;
     }
 }

@@ -2,7 +2,9 @@ package ru.geekbrains.api.dispatcher.application.exception;
 
 public enum ErrorCodes {
     JSON_ERROR(ErrorCodes.REPLACE),
-    JSON_VALIDATION_ERROR(ErrorCodes.REPLACE);
+    JSON_VALIDATION_ERROR(ErrorCodes.REPLACE),
+    INTERNAL_ERROR(ErrorCodes.REPLACE),
+    CONNECTION_REFUSED(ErrorCodes.REPLACE);
 
 
     private final static String REPLACE = "<REPLACE>";
