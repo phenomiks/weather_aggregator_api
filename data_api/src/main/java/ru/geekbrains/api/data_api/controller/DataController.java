@@ -1,6 +1,5 @@
 package ru.geekbrains.api.data_api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/api/v1/data")
 public interface DataController {
     @PostMapping(value = "/get-weather")
-    ResponseEntity<ObjectNode> cityData(@RequestBody ObjectNode json);
+    ResponseEntity<?> getWeather(@RequestBody ObjectNode json);
 }
 

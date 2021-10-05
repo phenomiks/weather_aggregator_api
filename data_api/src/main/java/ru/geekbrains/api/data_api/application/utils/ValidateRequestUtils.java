@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @Component
 public class ValidateRequestUtils {
-    public DataParameters validateUserRegistrationParameters(ObjectNode parameters) {
+    public DataParameters validateGetWeatherParameters(ObjectNode parameters) {
         int parametersCount = 2;
         checkJsonFieldsCount(parameters, parametersCount);
 

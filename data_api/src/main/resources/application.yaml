@@ -1,0 +1,3 @@
+server.port: 8094
+loader.getWeather: http://localhost:8096/api/v1/loader/get-weather
+dataApi.timeout: 3
