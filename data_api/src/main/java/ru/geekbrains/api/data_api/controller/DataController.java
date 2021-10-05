@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/api/v1/data")
 public interface DataController {
     @PostMapping(value = "/get-weather")
-    ResponseEntity<ObjectNode> cityData(@RequestBody ObjectNode json);
+    ResponseEntity<?> getWeather(@RequestBody ObjectNode json);
 }
 

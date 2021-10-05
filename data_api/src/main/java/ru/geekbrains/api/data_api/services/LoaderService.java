@@ -20,7 +20,7 @@ public class LoaderService {
         this.restService = restService;
     }
 
-    public ResponseEntity<?> LoaderWeather(ObjectNode json){
+    public ResponseEntity<?> loaderWeather(ObjectNode json){
         ResponseEntity<?> responseEntity = restService.doPost(json, url);
         if (responseEntity == null){
             ExceptionHandlerForRestService.timeOutException();
