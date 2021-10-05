@@ -24,7 +24,7 @@ public class DataControllerImpl implements DataController {
 
     @Override
     public ResponseEntity<?> getWeather(@RequestBody ObjectNode json) {
-        validateRequestUtils.validateUserRegistrationParameters(json);
+        validateRequestUtils.validateGetWeatherParameters(json);
         try {
             return loaderService.loaderWeather(json);
         } catch (HttpStatusCodeException e) {
