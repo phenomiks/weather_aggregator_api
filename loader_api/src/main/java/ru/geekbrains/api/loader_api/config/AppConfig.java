@@ -1,12 +1,20 @@
 package ru.geekbrains.api.loader_api.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import java.time.Duration;
+
 @Configuration
 public class AppConfig {
+    @Value("${loader.resttemplate.connectTimeout}")
+    long connectTimeout;
+
+    @Value("${loader.resttemplate.readTimeout}")
+    long readTimeout;
 
     @Bean
     public CustomRestTemplateCustomizer customRestTemplateCustomizer() {
@@ -16,6 +24,8 @@ public class AppConfig {
     @Bean
     @DependsOn(value = {"customRestTemplateCustomizer"})
     public RestTemplateBuilder restTemplateBuilder() {
-        return new RestTemplateBuilder(customRestTemplateCustomizer());
+        return new RestTemplateBuilder(customRestTemplateCustomizer())
+                .setConnectTimeout(Duration.ofSeconds(connectTimeout))
+                .setReadTimeout(Duration.ofSeconds(readTimeout));
     }
 }

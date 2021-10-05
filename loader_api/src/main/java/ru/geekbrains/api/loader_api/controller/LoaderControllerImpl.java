@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpStatusCodeException;
 import ru.geekbrains.api.loader_api.controller.interfaces.LoaderController;
+import ru.geekbrains.api.loader_api.exception.ErrorCodes;
+import ru.geekbrains.api.loader_api.exception.LoaderApiException;
 import ru.geekbrains.api.loader_api.service.OpenWeatherLoader;
+import ru.geekbrains.api.loader_api.utils.JsonResponseGenerator;
 
 @RestController
 public class LoaderControllerImpl implements LoaderController {
@@ -19,6 +23,12 @@ public class LoaderControllerImpl implements LoaderController {
 
     @Override
     public ResponseEntity<?> getWeatherByCity(@RequestBody ObjectNode objectNode) {
-        return openWeatherLoader.getResponse(objectNode);
+        try {
+            return openWeatherLoader.getResponse(objectNode);
+        } catch (HttpStatusCodeException e) {
+            ObjectNode body = JsonResponseGenerator.generateErrorResponseJson(ErrorCodes.INTERNAL_ERROR, "");
+
+            throw new LoaderApiException("Error from the OpenWeather service", body);
+        }
     }
 }
