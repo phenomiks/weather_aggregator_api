@@ -2,7 +2,8 @@ package ru.geekbrains.api.loader_api.exception;
 
 public enum ErrorCodes {
     JSON_ERROR(ErrorCodes.REPLACE),
-    JSON_VALIDATION_ERROR(ErrorCodes.REPLACE);
+    JSON_VALIDATION_ERROR(ErrorCodes.REPLACE),
+    INTERNAL_ERROR("An internal error occurred. Try later");
 
     private final static String REPLACE = "<REPLACE>";
 
