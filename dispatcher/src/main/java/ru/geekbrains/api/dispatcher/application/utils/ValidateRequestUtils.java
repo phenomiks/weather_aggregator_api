@@ -9,9 +9,9 @@ import ru.geekbrains.api.dispatcher.application.exception.ErrorCodes;
 
 @Component
 public class ValidateRequestUtils {
-    public void validateUserRegistrationParameters(ObjectNode parameters) {
+    public String validateUserRegistrationParameters(ObjectNode parameters) {
         JsonNode keyField = checkJsonField(parameters, "key");
-        isStringJsonField(keyField);
+        return isStringJsonField(keyField);
     }
 
     private JsonNode checkJsonField(ObjectNode parameters, String fieldName) {

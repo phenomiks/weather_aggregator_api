@@ -37,9 +37,9 @@ public class DispatcherController implements DispatcherAbstractController {
     //    http://localhost:8090/api/v1/dispatcher/get-weather
     @Override
     public ResponseEntity<?> getWeather(@RequestBody ObjectNode json) {
-        validateRequestUtils.validateUserRegistrationParameters(json);
+        String key = validateRequestUtils.validateUserRegistrationParameters(json);
         try {
-            return dataService.getWeather(json);
+            return dataService.getWeather(json, key);
         } catch (HttpStatusCodeException e) {
             return ExceptionHandlerForPostRequester.checkResponseHttpStatus(e);
         }
