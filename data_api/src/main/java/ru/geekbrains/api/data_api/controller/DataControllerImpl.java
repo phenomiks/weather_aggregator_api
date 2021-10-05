@@ -1,8 +1,6 @@
 package ru.geekbrains.api.data_api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +19,7 @@ public class DataControllerImpl implements DataController {
     }
 
     @Override
-    public ResponseEntity<ObjectNode> cityData(ObjectNode json) {
+    public ResponseEntity<ObjectNode> cityData(ObjectNode json)  {
         DataParameters dataParameters = validateRequestUtils.validateUserRegistrationParameters(json);
         ObjectNode response = JsonResponseGenerator.generateSuccessResponseJson();
 
