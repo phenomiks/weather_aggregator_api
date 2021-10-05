@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.api.data_api.application.utils.ExceptionHandlerForRestService;
 
 @Service
 public class LoaderService {
@@ -19,7 +20,11 @@ public class LoaderService {
         this.restService = restService;
     }
 
-    public ResponseEntity<?> registerUser(ObjectNode json){
-        return restService.doPost(json, url);
+    public ResponseEntity<?> LoaderWeather(ObjectNode json){
+        ResponseEntity<?> responseEntity = restService.doPost(json, url);
+        if (responseEntity == null){
+            ExceptionHandlerForRestService.timeOutException();
+        }
+        return responseEntity;
     }
 }
