@@ -1,25 +1,14 @@
 package ru.geekbrains.api.auth_api.model.request;
 
-public class UserRegParams {
-    private final String login;
+public class UserRegParams extends UserParams {
     private final String email;
-    private final String password;
 
-    public UserRegParams(String login, String email, String password) {
-        this.login = login;
+    public UserRegParams(String login, char[] password, String email) {
+        super(login, password);
         this.email = email;
-        this.password = password;
-    }
-
-    public String getLogin() {
-        return login;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

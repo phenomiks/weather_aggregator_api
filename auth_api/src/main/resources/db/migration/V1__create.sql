@@ -13,10 +13,9 @@ CREATE TABLE users
 
 CREATE TABLE tokens
 (
-    id         BIGSERIAL PRIMARY KEY,
-    user_id    BIGINT REFERENCES users (id),
-    token      VARCHAR   NOT NULL UNIQUE,
-    created_at TIMESTAMP NOT NULL
+    id      BIGSERIAL PRIMARY KEY,
+    user_id BIGINT REFERENCES users (id),
+    token   VARCHAR NOT NULL UNIQUE
 );
 
 COMMIT;

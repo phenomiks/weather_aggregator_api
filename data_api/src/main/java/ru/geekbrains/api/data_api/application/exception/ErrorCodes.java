@@ -3,7 +3,9 @@ package ru.geekbrains.api.data_api.application.exception;
 public enum ErrorCodes {
     JSON_ERROR(ErrorCodes.REPLACE),
     JSON_VALIDATION_ERROR(ErrorCodes.REPLACE),
-    CITY_NOT_FOUND("City " + ErrorCodes.REPLACE + " not found");
+    CITY_NOT_FOUND("City " + ErrorCodes.REPLACE + " not found"),
+    INTERNAL_ERROR(ErrorCodes.REPLACE),
+    CONNECTION_REFUSED(ErrorCodes.REPLACE);
 
     private final static String REPLACE = "<REPLACE>";
 

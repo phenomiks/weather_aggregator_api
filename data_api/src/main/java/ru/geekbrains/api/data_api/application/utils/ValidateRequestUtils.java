@@ -3,6 +3,7 @@ package ru.geekbrains.api.data_api.application.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.api.data_api.application.exception.DataApiException;
@@ -14,19 +15,28 @@ import java.util.ArrayList;
 
 @Component
 public class ValidateRequestUtils {
-    public DataParameters validateUserRegistrationParameters(ObjectNode parameters) throws JsonProcessingException {
+    public DataParameters validateGetWeatherParameters(ObjectNode parameters) {
         int parametersCount = 2;
         checkJsonFieldsCount(parameters, parametersCount);
 
         JsonNode cityField = checkJsonField(parameters, "city");
         JsonNode servicesField = checkJsonField(parameters, "services");
 
-        isStringJsonField(cityField);
+        String city  = isStringJsonField(cityField);
         isArrayJsonField(servicesField);
+        isArrayJsonFieldNotEmpty(servicesField);
+        isArrayStringJsonField(servicesField);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<String> city = objectMapper.readValue(servicesField.toString(),ArrayList.class);
-        ArrayList<String> services = objectMapper.readValue(servicesField.toString(),ArrayList.class);
+        ArrayList<String> services = null;
+        try {
+            services = objectMapper.readValue(servicesField.toString(), ArrayList.class);
+        } catch (JsonProcessingException e) {
+            ObjectNode body = JsonResponseGenerator
+                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                            "Problem with format translation");
+            throw new DataApiException("Json format error ",body );
+        }
 
         return new DataParameters(city,services);
     }
@@ -72,6 +82,28 @@ public class ValidateRequestUtils {
                             field + " value must be a array");
 
             throw new DataApiException(field + " value must be a array", body);
+        }
+    }
+
+    private static void isArrayJsonFieldNotEmpty(JsonNode field) {
+        if (field.isEmpty()) {
+            ObjectNode body = JsonResponseGenerator
+                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                            field + " the value should not be empty");
+
+            throw new DataApiException(field + " the value should not be empty", body);
+        }
+    }
+
+    private static void isArrayStringJsonField(JsonNode field) {
+        for (int i = 0; i < field.size(); i++) {
+            if (!(field.get(i).getNodeType() == JsonNodeType.STRING)) {
+                ObjectNode body = JsonResponseGenerator
+                        .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                                field + " the array should contain only strings");
+
+                throw new DataApiException(field + " the array should contain only strings", body);
+            }
         }
     }
 
