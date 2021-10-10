@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import ru.geekbrains.api.auth_api.application.utils.ValidateRequestUtils;
+import ru.geekbrains.api.auth_api.model.request.UserParams;
+import ru.geekbrains.api.auth_api.utils.ValidateRequestUtils;
 import ru.geekbrains.api.auth_api.controller.interfaces.AuthController;
 import ru.geekbrains.api.auth_api.model.request.UserRegParams;
 import ru.geekbrains.api.auth_api.model.response.Response;
@@ -26,6 +27,15 @@ public class AuthControllerImpl implements AuthController {
         UserRegParams userRegParams = validateRequestUtils.validateUserRegistrationParameters(json);
 
         Response response = userTokenService.generateKeyResponse(userRegParams);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<Response> getNewKey(ObjectNode json) {
+        UserParams userParams = validateRequestUtils.validateUserParameters(json);
+
+        Response response = userTokenService.generateNewKeyResponse(userParams);
 
         return ResponseEntity.ok(response);
     }

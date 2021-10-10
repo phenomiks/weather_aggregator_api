@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByLoginOrEmail(String login, String email) {
+        return userRepository.findUserByLoginOrEmail(login, email);
+    }
+
+    @Override
     public User saveUser(String login, String email, char[] password) {
         User user = new User(login, email, password);
 

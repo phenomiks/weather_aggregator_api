@@ -1,25 +1,25 @@
 package ru.geekbrains.api.auth_api.model.response;
 
-import ru.geekbrains.api.auth_api.application.exception.ErrorCodes;
+import ru.geekbrains.api.auth_api.exception.ErrorCode;
 
 import java.io.Serializable;
 
 public class Error implements Serializable {
     private static final long serialVersionUID = 2612116727050041763L;
 
-    private ErrorCodes errorCode;
+    private ErrorCode errorCode;
     private String message;
 
-    public Error(ErrorCodes errorCode, String message) {
+    public Error(ErrorCode errorCode, String message) {
         this.errorCode = errorCode;
         this.message = message;
     }
 
-    public ErrorCodes getErrorCode() {
+    public ErrorCode getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(ErrorCodes errorCode) {
+    public void setErrorCode(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
 

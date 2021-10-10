@@ -1,4 +1,4 @@
-package ru.geekbrains.api.auth_api.application.exception;
+package ru.geekbrains.api.auth_api.exception;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class WebExceptionHandler {
     @ExceptionHandler
     @ResponseBody
     public ResponseEntity<Response> handleJsonParseException(JsonParseException exception) {
-        Response response = new ErrorResponse(ErrorCodes.JSON_ERROR, exception.getMessage());
+        Response response = new ErrorResponse(ErrorCode.JSON_ERROR, exception.getMessage());
 
         return generateErrorResponse(response);
     }

@@ -11,4 +11,7 @@ import ru.geekbrains.api.auth_api.model.response.Response;
 public interface AuthController {
     @PostMapping(value = "/register")
     ResponseEntity<Response> registerUser(@RequestBody ObjectNode json);
+
+    @PostMapping(value = "/new-key")
+    ResponseEntity<Response> getNewKey(@RequestBody ObjectNode json);
 }
