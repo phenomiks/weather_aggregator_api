@@ -8,4 +8,6 @@ public interface UserServiceFacade {
     Response generateKeyResponse(UserRegParams regParams);
 
     Response generateNewKeyResponse(UserParams regParams);
+
+    Response generateUserKeysResponse(UserParams userParams);
 }

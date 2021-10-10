@@ -14,4 +14,7 @@ public interface AuthController {
 
     @PostMapping(value = "/new-key")
     ResponseEntity<Response> getNewKey(@RequestBody ObjectNode json);
+
+    @PostMapping(value = "/user-keys")
+    ResponseEntity<Response> getUserKeys(@RequestBody ObjectNode json);
 }

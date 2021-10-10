@@ -7,6 +7,9 @@ import ru.geekbrains.api.auth_api.model.User;
 import ru.geekbrains.api.auth_api.repository.TokenRepository;
 import ru.geekbrains.api.auth_api.service.interfaces.TokenService;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class TokenServiceImpl implements TokenService {
     private final TokenRepository tokenRepository;
@@ -14,6 +17,11 @@ public class TokenServiceImpl implements TokenService {
     @Autowired
     public TokenServiceImpl(TokenRepository tokenRepository) {
         this.tokenRepository = tokenRepository;
+    }
+
+    @Override
+    public Set<Token> findUserTokens(Long userId) {
+        return tokenRepository.findAllByUserId(userId);
     }
 
     @Override

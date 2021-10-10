@@ -39,4 +39,13 @@ public class AuthControllerImpl implements AuthController {
 
         return ResponseEntity.ok(response);
     }
+
+    @Override
+    public ResponseEntity<Response> getUserKeys(ObjectNode json) {
+        UserParams userParams = validateRequestUtils.validateUserParameters(json);
+
+        Response response = userTokenService.generateUserKeysResponse(userParams);
+
+        return ResponseEntity.ok(response);
+    }
 }
