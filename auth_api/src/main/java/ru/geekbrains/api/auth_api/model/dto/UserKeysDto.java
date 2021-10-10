@@ -14,13 +14,13 @@ public class UserKeysDto  implements Serializable {
     private Set<String> keys;
 
     public UserKeysDto(Collection<Token> tokens) {
-        this.keys = (Objects.isNull(tokens)) ? null : convertToTokensDto(tokens);
+        this.keys = (Objects.isNull(tokens)) ? null : convertToTokenValuesCollection(tokens);
     }
 
-    private Set<String> convertToTokensDto(Collection<Token> tokens) {
+    private Set<String> convertToTokenValuesCollection(Collection<Token> tokens) {
         return tokens.stream()
                 .filter(Objects::nonNull)
-                .map(token -> new TokenDto(token).getKey())
+                .map(Token::getTokenValue)
                 .collect(Collectors.toSet());
     }
 
