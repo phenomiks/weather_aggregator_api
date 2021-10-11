@@ -14,10 +14,14 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.geekbrains.api.loader_api.domain.City;
+import ru.geekbrains.api.loader_api.exception.CityNotFoundException;
+import ru.geekbrains.api.loader_api.exception.LoaderApiException;
+import ru.geekbrains.api.loader_api.exception.RequiredParamNotFound;
 
 import java.util.Arrays;
 import java.util.Optional;
 
+import static ru.geekbrains.api.loader_api.exception.ErrorCodes.CITY_NOT_FOUND;
 import static ru.geekbrains.api.loader_api.utils.HttpRequestConstants.HTTP;
 import static ru.geekbrains.api.loader_api.utils.OpenWeatherRequestConstants.*;
 
@@ -38,7 +42,7 @@ public class GeocodingLoader implements GeoLoader {
     }
 
     @Cacheable("cities")
-    public City getCity(String cityName) {
+    public City getCity(String cityName) throws LoaderApiException{
         UriComponents urlBuilder;
         urlBuilder = UriComponentsBuilder.newInstance()
                 .scheme(HTTP).host(GEOCODING_URL)
@@ -47,26 +51,28 @@ public class GeocodingLoader implements GeoLoader {
                 .build();
         Optional<City[]> answer = Optional.ofNullable(restTemplate.getForObject(urlBuilder.toUriString(), City[].class));
         if (answer.isPresent()) {
-            LOGGER.info(Arrays.toString(answer.get()));
-            //It works if the answer has the first correct city
-            updateCity(answer.get()[0]);
-            return answer.get()[0];
+            if (answer.get().length > 0) {
+                LOGGER.info(Arrays.toString(answer.get()));
+                //It works if the answer has the first correct city
+                updateCity(answer.get()[0]);
+                return answer.get()[0];
+            }
         }
 
-        throw new IllegalArgumentException("The city was not found");
+        throw new CityNotFoundException(CITY_NOT_FOUND.getMessage());
     }
 
 
     @CachePut(value = "city", key = "#city.name")
     public City updateCity(City city) {
         if (city.getName() == null) {
-            throw new IllegalArgumentException("A city must have a name");
+            throw new RequiredParamNotFound("city name");
         }
 
         return city;
     }
 
     public Optional<City> getResponse(ObjectNode objectNode) {
-       return Optional.ofNullable(getCity(objectNode.get("city").asText()));
+        return Optional.ofNullable(getCity(objectNode.get("city").asText()));
     }
 }
