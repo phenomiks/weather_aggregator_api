@@ -34,6 +34,26 @@ public class DispatcherController implements DispatcherAbstractController {
         }
     }
 
+    //    http://localhost:8090/api/v1/dispatcher/new-key
+    @Override
+    public ResponseEntity<?> getNewKey(ObjectNode json) {
+        try {
+            return authService.getNewKey(json);
+        } catch (HttpStatusCodeException e) {
+            return ExceptionHandlerForPostRequester.checkResponseHttpStatus(e);
+        }
+    }
+
+    //    http://localhost:8090/api/v1/dispatcher/user-keys
+    @Override
+    public ResponseEntity<?> getUserKeys(ObjectNode json) {
+        try {
+            return authService.getUserKeys(json);
+        } catch (HttpStatusCodeException e) {
+            return ExceptionHandlerForPostRequester.checkResponseHttpStatus(e);
+        }
+    }
+
     //    http://localhost:8090/api/v1/dispatcher/get-weather
     @Override
     public ResponseEntity<?> getWeather(@RequestBody ObjectNode json) {

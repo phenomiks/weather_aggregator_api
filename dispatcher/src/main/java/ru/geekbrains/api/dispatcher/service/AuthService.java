@@ -13,6 +13,12 @@ public class AuthService {
     @Value("${authApi.register}")
     private String urlRegister;
 
+    @Value("${authApi.newKey}")
+    private String urlNewKey;
+
+    @Value("${authApi.userKeys}")
+    private String urlUserKeys;
+
     private final PostRequester postRequester;
 
     @Autowired
@@ -22,6 +28,22 @@ public class AuthService {
 
     public ResponseEntity<?> registerUser(ObjectNode json){
         ResponseEntity<?> responseEntity = postRequester.doPost(json, urlRegister);
+        if (responseEntity == null){
+            ExceptionHandlerForPostRequester.timeOutException();
+        }
+        return responseEntity;
+    }
+
+    public ResponseEntity<?> getNewKey(ObjectNode json){
+        ResponseEntity<?> responseEntity = postRequester.doPost(json, urlNewKey);
+        if (responseEntity == null){
+            ExceptionHandlerForPostRequester.timeOutException();
+        }
+        return responseEntity;
+    }
+
+    public ResponseEntity<?> getUserKeys(ObjectNode json){
+        ResponseEntity<?> responseEntity = postRequester.doPost(json, urlUserKeys);
         if (responseEntity == null){
             ExceptionHandlerForPostRequester.timeOutException();
         }

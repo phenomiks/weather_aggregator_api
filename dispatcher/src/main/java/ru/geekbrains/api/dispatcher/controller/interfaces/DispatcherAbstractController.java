@@ -12,6 +12,12 @@ public interface DispatcherAbstractController {
     @PostMapping(value = "/register")
     ResponseEntity<?> registerUser(@RequestBody ObjectNode json);
 
+    @PostMapping(value = "/new-key")
+    ResponseEntity<?> getNewKey(@RequestBody ObjectNode json);
+
+    @PostMapping(value = "/user-keys")
+    ResponseEntity<?> getUserKeys(@RequestBody ObjectNode json);
+
     @PostMapping(value = "/get-weather")
     ResponseEntity<?> getWeather(@RequestBody ObjectNode json);
 }
