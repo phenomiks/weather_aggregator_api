@@ -2,6 +2,7 @@ package ru.geekbrains.api.auth_api.utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.TextCodec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,8 @@ public class JwtTokenUtil {
                 .setSubject(login)
                 .setIssuedAt(issuedDate)
                 .setExpiration(expired)
-                .signWith(SignatureAlgorithm.HS256, secret) // TODO
+                .signWith(SignatureAlgorithm.HS256,
+                        TextCodec.BASE64.decode(secret))
                 .compact();
     }
 }
