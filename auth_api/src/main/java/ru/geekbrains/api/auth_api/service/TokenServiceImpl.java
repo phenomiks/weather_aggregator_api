@@ -7,7 +7,6 @@ import ru.geekbrains.api.auth_api.model.User;
 import ru.geekbrains.api.auth_api.repository.TokenRepository;
 import ru.geekbrains.api.auth_api.service.interfaces.TokenService;
 
-import java.util.List;
 import java.util.Set;
 
 @Service

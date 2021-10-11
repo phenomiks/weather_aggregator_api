@@ -23,7 +23,7 @@ public class JwtTokenUtil {
                 .setSubject(login)
                 .setIssuedAt(issuedDate)
                 .setExpiration(expired)
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(SignatureAlgorithm.HS256, secret) // TODO
                 .compact();
     }
 }
