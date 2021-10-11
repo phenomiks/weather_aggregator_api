@@ -4,7 +4,9 @@ public enum ErrorCodes {
     JSON_ERROR(ErrorCodes.REPLACE),
     JSON_VALIDATION_ERROR(ErrorCodes.REPLACE),
     INTERNAL_ERROR(ErrorCodes.REPLACE),
-    CONNECTION_REFUSED(ErrorCodes.REPLACE);
+    CONNECTION_REFUSED(ErrorCodes.REPLACE),
+    KEY_EXPIRED(ErrorCodes.REPLACE),
+    KEY_NOT_VALID(ErrorCodes.REPLACE);
 
 
     private final static String REPLACE = "<REPLACE>";
