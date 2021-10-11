@@ -1,7 +1,8 @@
 package ru.geekbrains.api.loader_api.service;
 
-import java.util.Optional;
+
+import ru.geekbrains.api.loader_api.domain.City;
 
 public interface GeoLoader {
-    Optional<Object> getCityCoordinate(String cityName);
+    City getCity(String cityName);
 }
