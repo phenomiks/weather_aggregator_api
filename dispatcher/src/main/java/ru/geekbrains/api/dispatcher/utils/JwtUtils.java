@@ -1,4 +1,4 @@
-package ru.geekbrains.api.dispatcher.application.utils;
+package ru.geekbrains.api.dispatcher.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

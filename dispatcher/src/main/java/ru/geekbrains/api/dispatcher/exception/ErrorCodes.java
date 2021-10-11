@@ -1,4 +1,4 @@
-package ru.geekbrains.api.dispatcher.application.exception;
+package ru.geekbrains.api.dispatcher.exception;
 
 public enum ErrorCodes {
     JSON_ERROR(ErrorCodes.REPLACE),
