@@ -11,11 +11,7 @@ public class DataParameters {
         this.services = services;
     }
 
-    public String getCity() {
-        return city;
-    }
+    public String getCity() { return city; }
 
-    public ArrayList<String> getServices() {
-        return services;
-    }
+    public ArrayList<String> getServices() { return services; }
 }
