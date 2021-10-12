@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 import ru.geekbrains.api.data_api.application.utils.ExceptionHandlerForRestService;
 import ru.geekbrains.api.data_api.application.utils.ValidateRequestUtils;
+import ru.geekbrains.api.data_api.request.DataParameters;
 import ru.geekbrains.api.data_api.services.LoaderService;
 
 
@@ -24,9 +25,9 @@ public class DataControllerImpl implements DataController {
 
     @Override
     public ResponseEntity<?> getWeather(@RequestBody ObjectNode json) {
-        validateRequestUtils.validateGetWeatherParameters(json);
+        DataParameters dataParameters = validateRequestUtils.validateGetWeatherParameters(json);
         try {
-            return loaderService.loaderWeather(json);
+            return loaderService.loaderWeather(dataParameters);
         } catch (HttpStatusCodeException e) {
             return ExceptionHandlerForRestService.checkResponseHttpStatus(e);
         }

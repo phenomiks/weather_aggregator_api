@@ -2,7 +2,7 @@ package ru.geekbrains.api.data_api.application.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import ru.geekbrains.api.data_api.application.exception.ErrorCodes;
+import ru.geekbrains.api.data_api.application.exception.ErrorCode;
 
 
 public class JsonResponseGenerator {
@@ -14,7 +14,7 @@ public class JsonResponseGenerator {
         return success;
     }
 
-    public static ObjectNode generateErrorResponseJson(ErrorCodes errorCode, String replaceText) {
+    public static ObjectNode generateErrorResponseJson(ErrorCode errorCode, String replaceText) {
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode report = mapper.createObjectNode();

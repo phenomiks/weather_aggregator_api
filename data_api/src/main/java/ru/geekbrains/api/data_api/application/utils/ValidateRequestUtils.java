@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.api.data_api.application.exception.DataApiException;
-import ru.geekbrains.api.data_api.application.exception.ErrorCodes;
+import ru.geekbrains.api.data_api.application.exception.ErrorCode;
 import ru.geekbrains.api.data_api.request.DataParameters;
 
 import java.util.ArrayList;
@@ -32,22 +32,18 @@ public class ValidateRequestUtils {
         try {
             services = objectMapper.readValue(servicesField.toString(), ArrayList.class);
         } catch (JsonProcessingException e) {
-            ObjectNode body = JsonResponseGenerator
-                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                            "Problem with format translation");
-            throw new DataApiException("Json format error ",body );
+            throw new DataApiException("Json format error ",
+                    ErrorCode.JSON_VALIDATION_ERROR,
+                    "Problem with format translation");
         }
-
         return new DataParameters(city,services);
     }
 
     private void checkJsonFieldsCount(ObjectNode parameters, int count) {
         if (parameters.size() != count) {
-            ObjectNode body = JsonResponseGenerator
-                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                            "Check the number of fields in the message");
-
-            throw new DataApiException("Validation input parameters size not equals " + count, body);
+            throw new DataApiException("Validation input parameters size not equals " + count,
+                    ErrorCode.JSON_VALIDATION_ERROR,
+                    "Check the number of fields in the message");
         }
     }
 
@@ -55,54 +51,32 @@ public class ValidateRequestUtils {
         if (parameters.has(fieldName)) {
             return parameters.path(fieldName);
         }
-
-        ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                        "Not found " + fieldName + " field");
-
-        throw new DataApiException("Not found " + fieldName + " field", body);
+        throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, "Not found " + fieldName + " field");
     }
 
     private String isStringJsonField(JsonNode field) {
         if (field.isTextual()) {
             return field.textValue();
         }
-
-        ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                        field + " value must be a string");
-
-        throw new DataApiException(field + " value must be a string", body);
+        throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, field + " value must be a string");
     }
 
     private static void isArrayJsonField(JsonNode field) {
         if (!field.isArray()) {
-            ObjectNode body = JsonResponseGenerator
-                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                            field + " value must be a array");
-
-            throw new DataApiException(field + " value must be a array", body);
+            throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, field + " value must be a array");
         }
     }
 
     private static void isArrayJsonFieldNotEmpty(JsonNode field) {
         if (field.isEmpty()) {
-            ObjectNode body = JsonResponseGenerator
-                    .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                            field + " the value should not be empty");
-
-            throw new DataApiException(field + " the value should not be empty", body);
+            throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, field + " the value should not be empty");
         }
     }
 
     private static void isArrayStringJsonField(JsonNode field) {
         for (int i = 0; i < field.size(); i++) {
             if (!(field.get(i).getNodeType() == JsonNodeType.STRING)) {
-                ObjectNode body = JsonResponseGenerator
-                        .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
-                                field + " the array should contain only strings");
-
-                throw new DataApiException(field + " the array should contain only strings", body);
+                throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, field + " the array should contain only strings");
             }
         }
     }
