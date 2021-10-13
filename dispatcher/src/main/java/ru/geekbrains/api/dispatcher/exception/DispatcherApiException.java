@@ -1,4 +1,4 @@
-package ru.geekbrains.api.dispatcher.application.exception;
+package ru.geekbrains.api.dispatcher.exception;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 

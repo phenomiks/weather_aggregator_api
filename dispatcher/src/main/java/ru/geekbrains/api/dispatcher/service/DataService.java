@@ -1,14 +1,12 @@
 package ru.geekbrains.api.dispatcher.service;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.api.dispatcher.application.utils.ExceptionHandlerForPostRequester;
-import ru.geekbrains.api.dispatcher.application.utils.JwtUtils;
+import ru.geekbrains.api.dispatcher.utils.ExceptionHandlerForPostRequester;
+import ru.geekbrains.api.dispatcher.utils.TokenValidator;
 
 @Service
 public class DataService {
@@ -17,23 +15,16 @@ public class DataService {
     private String urlGetWeather;
 
     private final PostRequester postRequester;
-
-    private final JwtUtils jwtUtils;
+    private final TokenValidator tokenValidator;
 
     @Autowired
-    public DataService(PostRequester postRequester, JwtUtils jwtUtils) {
+    public DataService(PostRequester postRequester, TokenValidator tokenValidator) {
         this.postRequester = postRequester;
-        this.jwtUtils = jwtUtils;
+        this.tokenValidator = tokenValidator;
     }
 
     public ResponseEntity<?> getWeather(ObjectNode json, String key) {
-//        try {
-//            jwtUtils.getUsernameFromToken(key);
-//        } catch (MalformedJwtException e) {
-//
-//        } catch (ExpiredJwtException e) {
-//
-//        }
+        tokenValidator.checkException(key);
         json.remove("key");
         ResponseEntity<?> responseEntity = postRequester.doPost(json, urlGetWeather);
         if (responseEntity == null) {

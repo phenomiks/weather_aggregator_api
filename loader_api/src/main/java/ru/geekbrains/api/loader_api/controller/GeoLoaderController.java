@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.api.loader_api.service.GeocodingLoader;
 
 @RestController
-@RequestMapping("/api/v1/loader/geo/")
+@RequestMapping("/api/v1/loader/geo")
 public class GeoLoaderController {
     private final GeocodingLoader geocodingLoader;
 

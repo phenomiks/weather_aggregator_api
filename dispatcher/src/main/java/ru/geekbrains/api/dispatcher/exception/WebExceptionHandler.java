@@ -1,4 +1,4 @@
-package ru.geekbrains.api.dispatcher.application.exception;
+package ru.geekbrains.api.dispatcher.exception;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.geekbrains.api.dispatcher.application.utils.JsonResponseGenerator;
+import ru.geekbrains.api.dispatcher.utils.JsonResponseGenerator;
 
 @ControllerAdvice
 public class WebExceptionHandler {
