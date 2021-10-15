@@ -8,19 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.api.auth_api.model.request.UserParams;
 import ru.geekbrains.api.auth_api.model.response.ErrorResponse;
+import ru.geekbrains.api.auth_api.service.interfaces.UserServiceFacade;
 import ru.geekbrains.api.auth_api.utils.ValidateRequestUtils;
 import ru.geekbrains.api.auth_api.controller.interfaces.AuthController;
 import ru.geekbrains.api.auth_api.model.request.UserRegParams;
 import ru.geekbrains.api.auth_api.model.response.Response;
-import ru.geekbrains.api.auth_api.service.UserTokenService;
 
 @RestController
 public class AuthControllerImpl implements AuthController {
-    private final UserTokenService userTokenService;
+    private final UserServiceFacade userTokenService;
     private final ValidateRequestUtils validateRequestUtils;
 
     @Autowired
-    public AuthControllerImpl(UserTokenService userTokenService, ValidateRequestUtils validateRequestUtils) {
+    public AuthControllerImpl(UserServiceFacade userTokenService, ValidateRequestUtils validateRequestUtils) {
         this.userTokenService = userTokenService;
         this.validateRequestUtils = validateRequestUtils;
     }
