@@ -73,7 +73,15 @@ public class ValidateRequestUtils {
             return ImmutablePair.left(status);
         }
 
-        return ImmutablePair.right(new UserRegParams(login, password, email));
+        UserRegParams userRegParams = GenericBuilder.of(UserRegParams::new)
+                .with(UserRegParams::setLogin, login)
+                .with(UserRegParams::setPassword, password)
+                .with(UserRegParams::setEmail, email)
+                .build();
+
+        return ImmutablePair.right(userRegParams);
+
+//        return ImmutablePair.right(new UserRegParams(login, password, email));
     }
 
     public Pair<ErrorResponse, UserParams> validateUserParameters(ObjectNode parameters) {

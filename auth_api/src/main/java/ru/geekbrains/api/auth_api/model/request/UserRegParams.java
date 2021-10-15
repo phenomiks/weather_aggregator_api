@@ -1,7 +1,10 @@
 package ru.geekbrains.api.auth_api.model.request;
 
 public class UserRegParams extends UserParams {
-    private final String email;
+    private String email;
+
+    public UserRegParams() {
+    }
 
     public UserRegParams(String login, char[] password, String email) {
         super(login, password);
@@ -10,5 +13,9 @@ public class UserRegParams extends UserParams {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
