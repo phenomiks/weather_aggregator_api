@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.api.auth_api.model.Token;
 import ru.geekbrains.api.auth_api.model.User;
-import ru.geekbrains.api.auth_api.model.request.UserRegParams;
 import ru.geekbrains.api.auth_api.repository.TokenRepository;
 import ru.geekbrains.api.auth_api.service.interfaces.TokenService;
 import ru.geekbrains.api.auth_api.utils.GenericBuilder;
