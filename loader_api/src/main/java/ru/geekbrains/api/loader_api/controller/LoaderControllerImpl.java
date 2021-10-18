@@ -11,22 +11,23 @@ import ru.geekbrains.api.loader_api.exception.CityNotFoundException;
 import ru.geekbrains.api.loader_api.exception.ErrorCodes;
 import ru.geekbrains.api.loader_api.exception.LoaderApiException;
 import ru.geekbrains.api.loader_api.exception.RequiredParamNotFound;
-import ru.geekbrains.api.loader_api.service.OpenWeatherLoader;
+import ru.geekbrains.api.loader_api.service.LoaderService;
+import ru.geekbrains.api.loader_api.service.LoaderServiceImpl;
 import ru.geekbrains.api.loader_api.utils.JsonResponseGenerator;
 
 @RestController
 public class LoaderControllerImpl implements LoaderController {
-    private final OpenWeatherLoader openWeatherLoader;
+    private final LoaderService loaderService;
 
     @Autowired
-    public LoaderControllerImpl(OpenWeatherLoader openWeatherLoader) {
-        this.openWeatherLoader = openWeatherLoader;
+    public LoaderControllerImpl(LoaderServiceImpl loaderService) {
+        this.loaderService = loaderService;
     }
 
     @Override
     public ResponseEntity<?> getWeatherByCity(@RequestBody ObjectNode objectNode) {
         try {
-            return openWeatherLoader.getResponse(objectNode);
+            return loaderService.getResponse(objectNode);
         } catch (CityNotFoundException e) {
             ObjectNode body = JsonResponseGenerator.generateErrorResponseJson(ErrorCodes.CITY_NOT_FOUND, e.getMessage());
             throw new LoaderApiException("Error from the OpenWeather service", body);
