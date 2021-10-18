@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.geekbrains.api.loader_api.service.GeocodingLoader;
+import ru.geekbrains.api.loader_api.service.GeocodingLoaderServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1/loader/geo")
 public class GeoLoaderController {
-    private final GeocodingLoader geocodingLoader;
+    private final GeocodingLoaderServiceImpl geocodingLoader;
 
     @Autowired
-    public GeoLoaderController(GeocodingLoader geocodingLoader) {
+    public GeoLoaderController(GeocodingLoaderServiceImpl geocodingLoader) {
         this.geocodingLoader = geocodingLoader;
     }
 

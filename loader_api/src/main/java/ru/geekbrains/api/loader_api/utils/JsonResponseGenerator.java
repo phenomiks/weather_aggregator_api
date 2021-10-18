@@ -1,9 +1,12 @@
 package ru.geekbrains.api.loader_api.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import ru.geekbrains.api.loader_api.domain.WeatherService;
 import ru.geekbrains.api.loader_api.exception.ErrorCodes;
+
+import java.util.Map;
 
 
 public class JsonResponseGenerator {
@@ -20,7 +23,7 @@ public class JsonResponseGenerator {
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode report = mapper.createObjectNode();
-        String error_code =  errorCode.toString();
+        String error_code = errorCode.toString();
         String message = errorCode.replaceAndGetMessage(replaceText);
         report.put("error_code", error_code);
         report.put("message", message);
@@ -32,23 +35,24 @@ public class JsonResponseGenerator {
         return error;
     }
 
-    public static ObjectNode generateReportResponseJson(ObjectNode report, WeatherService weatherService) {
+    public static ObjectNode generateReportResponseJson(Map<WeatherService, ObjectNode> serviceObjectNodeMap) {
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode successReport = mapper.createObjectNode();
         successReport.put("status", "report");
 
-        if(weatherService == null) {
-            throw new IllegalArgumentException("Weather service cannot be null");
-        }
+        ArrayNode reportServices = mapper.createArrayNode();
 
-        ObjectNode reportService = mapper.createObjectNode();
-        reportService.set(weatherService.getName(), report);
+        serviceObjectNodeMap.forEach((service, node) -> {
+            if (service == null) {
+                throw new IllegalArgumentException("Weather service cannot be null");
+            }
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.set(service.getName(), node);
+            reportServices.add(objectNode);
+        });
 
-        successReport.set("report", reportService);
-
-        successReport.set(weatherService.getName(), report);
-
+        successReport.set("report", reportServices);
         return successReport;
     }
 }

@@ -6,19 +6,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.geekbrains.api.loader_api.domain.City;
 import ru.geekbrains.api.loader_api.exception.CityNotFoundException;
-import ru.geekbrains.api.loader_api.exception.LoaderApiException;
 import ru.geekbrains.api.loader_api.exception.RequiredParamNotFound;
 
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 import static ru.geekbrains.api.loader_api.exception.ErrorCodes.CITY_NOT_FOUND;
@@ -27,22 +26,29 @@ import static ru.geekbrains.api.loader_api.utils.OpenWeatherRequestConstants.*;
 
 @Service
 @PropertySource("classpath:private.properties")
-public class GeocodingLoader implements GeoLoader {
+public class GeocodingLoaderServiceImpl implements GeoLoaderService {
 
     @Value("${api.key.open.weather}")
     private String API_KEY;
 
-    private Logger LOGGER = LoggerFactory.getLogger(GeocodingLoader.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(GeocodingLoaderServiceImpl.class);
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    private final CacheManager cacheManager;
 
     @Autowired
-    public GeocodingLoader(RestTemplateBuilder builder) {
+    public GeocodingLoaderServiceImpl(RestTemplateBuilder builder, CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
         this.restTemplate = builder.build();
     }
 
-    @Cacheable("cities")
-    public City getCity(String cityName) throws LoaderApiException{
+    public City getCity(String cityName) {
+        City city = findInCacheCity(cityName);
+
+        if (city != null) {
+            return city;
+        }
+
         UriComponents urlBuilder;
         urlBuilder = UriComponentsBuilder.newInstance()
                 .scheme(HTTP).host(GEOCODING_URL)
@@ -52,9 +58,11 @@ public class GeocodingLoader implements GeoLoader {
         Optional<City[]> answer = Optional.ofNullable(restTemplate.getForObject(urlBuilder.toUriString(), City[].class));
         if (answer.isPresent()) {
             if (answer.get().length > 0) {
-                LOGGER.info(Arrays.toString(answer.get()));
+                LOGGER.info("Response: " + answer.get()[0].toString());
                 //It works if the answer has the first correct city
-                updateCity(answer.get()[0]);
+                city = answer.get()[0];
+                city.setName(cityName);
+                putInCacheCity(city);
                 return answer.get()[0];
             }
         }
@@ -62,14 +70,24 @@ public class GeocodingLoader implements GeoLoader {
         throw new CityNotFoundException(CITY_NOT_FOUND.getMessage());
     }
 
-
-    @CachePut(value = "city", key = "#city.name")
-    public City updateCity(City city) {
+    public void putInCacheCity(City city) {
         if (city.getName() == null) {
             throw new RequiredParamNotFound("city name");
         }
+        Objects.requireNonNull(cacheManager.getCache("cities")).put(city.getName(), city);
+    }
 
-        return city;
+    @SuppressWarnings("ConstantConditions")
+    @Nullable
+    public City findInCacheCity(String cityName) {
+        if (cityName == null) {
+            throw new RequiredParamNotFound("city name");
+        }
+        try {
+            return (City) cacheManager.getCache("cities").get(cityName).get();
+        } catch (NullPointerException | ClassCastException e) {
+            return null;
+        }
     }
 
     public Optional<City> getResponse(ObjectNode objectNode) {
