@@ -1,13 +1,11 @@
 package ru.geekbrains.api.loader_api.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import ru.geekbrains.api.loader_api.domain.WeatherService;
 import ru.geekbrains.api.loader_api.exception.ErrorCodes;
 
 import java.util.Map;
-
 
 public class JsonResponseGenerator {
     public static ObjectNode generateSuccessResponseJson() {
@@ -41,7 +39,7 @@ public class JsonResponseGenerator {
         ObjectNode successReport = mapper.createObjectNode();
         successReport.put("status", "report");
 
-        ArrayNode reportServices = mapper.createArrayNode();
+        ObjectNode reportServices = mapper.createObjectNode();
 
         serviceObjectNodeMap.forEach((service, node) -> {
             if (service == null) {
@@ -49,7 +47,7 @@ public class JsonResponseGenerator {
             }
             ObjectNode objectNode = mapper.createObjectNode();
             objectNode.set(service.getName(), node);
-            reportServices.add(objectNode);
+            reportServices.set(service.getName(), node);
         });
 
         successReport.set("report", reportServices);
