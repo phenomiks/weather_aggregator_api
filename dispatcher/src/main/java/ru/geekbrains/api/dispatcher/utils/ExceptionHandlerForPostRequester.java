@@ -5,13 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
 import ru.geekbrains.api.dispatcher.exception.DispatcherApiException;
-import ru.geekbrains.api.dispatcher.exception.ErrorCodes;
+import ru.geekbrains.api.dispatcher.exception.ErrorCode;
 
 
 public class ExceptionHandlerForPostRequester {
     public static void timeOutException() {
         ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.CONNECTION_REFUSED,
+                .generateErrorResponseJson(ErrorCode.CONNECTION_REFUSED,
                         "Connection time out");
 
         throw new DispatcherApiException("Connection time out", body);
@@ -23,7 +23,7 @@ public class ExceptionHandlerForPostRequester {
                     .body(e.getResponseBodyAsString());
         }
         ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.INTERNAL_ERROR,
+                .generateErrorResponseJson(ErrorCode.INTERNAL_ERROR,
                         "An internal error occurred. Try later");
 
         throw new DispatcherApiException("An internal error occurred. Try later", body);

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.api.dispatcher.exception.DispatcherApiException;
-import ru.geekbrains.api.dispatcher.exception.ErrorCodes;
+import ru.geekbrains.api.dispatcher.exception.ErrorCode;
 
 
 @Component
@@ -20,7 +20,7 @@ public class ValidateRequestUtils {
         }
 
         ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                .generateErrorResponseJson(ErrorCode.JSON_VALIDATION_ERROR,
                         "Not found " + fieldName + " field");
 
         throw new DispatcherApiException("Not found " + fieldName + " field", body);
@@ -32,7 +32,7 @@ public class ValidateRequestUtils {
         }
 
         ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.JSON_VALIDATION_ERROR,
+                .generateErrorResponseJson(ErrorCode.JSON_VALIDATION_ERROR,
                         field + " value must be a string");
 
         throw new DispatcherApiException(field + " value must be a string", body);

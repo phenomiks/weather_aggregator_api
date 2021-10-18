@@ -22,7 +22,7 @@ public class WebExceptionHandler {
     @ResponseBody
     public ResponseEntity<?> handleJsonParseException(JsonParseException exception) {
         ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCodes.JSON_ERROR,exception.getMessage());
+                .generateErrorResponseJson(ErrorCode.JSON_ERROR,exception.getMessage());
 
         return generateErrorResponse(body);
     }
