@@ -19,11 +19,8 @@ public class ValidateRequestUtils {
             return parameters.path(fieldName);
         }
 
-        ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCode.JSON_VALIDATION_ERROR,
-                        "Not found " + fieldName + " field");
-
-        throw new DispatcherApiException("Not found " + fieldName + " field", body);
+        throw new DispatcherApiException(ErrorCode.JSON_VALIDATION_ERROR,
+                "Not found " + fieldName + " field");
     }
 
     private String isStringJsonField(JsonNode field) {
@@ -31,10 +28,7 @@ public class ValidateRequestUtils {
             return field.textValue();
         }
 
-        ObjectNode body = JsonResponseGenerator
-                .generateErrorResponseJson(ErrorCode.JSON_VALIDATION_ERROR,
-                        field + " value must be a string");
-
-        throw new DispatcherApiException(field + " value must be a string", body);
+        throw new DispatcherApiException(ErrorCode.JSON_VALIDATION_ERROR,
+                field + " value must be a string");
     }
 }

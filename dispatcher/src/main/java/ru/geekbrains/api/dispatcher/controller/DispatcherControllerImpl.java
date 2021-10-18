@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 import ru.geekbrains.api.dispatcher.utils.ExceptionHandlerForPostRequester;
 import ru.geekbrains.api.dispatcher.utils.ValidateRequestUtils;
-import ru.geekbrains.api.dispatcher.controller.interfaces.DispatcherAbstractController;
+import ru.geekbrains.api.dispatcher.controller.interfaces.DispatcherController;
 import ru.geekbrains.api.dispatcher.service.AuthService;
 import ru.geekbrains.api.dispatcher.service.DataService;
 
 
 @RestController
-public class DispatcherController implements DispatcherAbstractController {
+public class DispatcherControllerImpl implements DispatcherController {
     private final ValidateRequestUtils validateRequestUtils;
     private final AuthService authService;
     private final DataService dataService;
 
-    public DispatcherController(ValidateRequestUtils validateRequestUtils, AuthService authService, DataService dataService) {
+    public DispatcherControllerImpl(ValidateRequestUtils validateRequestUtils, AuthService authService, DataService dataService) {
         this.validateRequestUtils = validateRequestUtils;
         this.authService = authService;
         this.dataService = dataService;
