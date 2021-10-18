@@ -45,8 +45,6 @@ public class JsonResponseGenerator {
             if (service == null) {
                 throw new IllegalArgumentException("Weather service cannot be null");
             }
-            ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.set(service.getName(), node);
             reportServices.set(service.getName(), node);
         });
 
