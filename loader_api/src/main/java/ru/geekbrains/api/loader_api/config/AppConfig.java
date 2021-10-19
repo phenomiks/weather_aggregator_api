@@ -1,5 +1,7 @@
 package ru.geekbrains.api.loader_api.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.CacheManager;
@@ -14,6 +16,10 @@ import java.time.Duration;
 @Configuration
 @EnableCaching
 public class AppConfig {
+
+    private Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
+    private final static String BEAN_INITIALIZING = "Initializing bean: ";
+
     @Value("${loader.resttemplate.connectTimeout}")
     long connectTimeout;
 
@@ -28,13 +34,18 @@ public class AppConfig {
     @Bean
     @DependsOn(value = {"customRestTemplateCustomizer"})
     public RestTemplateBuilder restTemplateBuilder() {
-        return new RestTemplateBuilder(customRestTemplateCustomizer())
+        RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder(customRestTemplateCustomizer())
                 .setConnectTimeout(Duration.ofSeconds(connectTimeout))
                 .setReadTimeout(Duration.ofSeconds(readTimeout));
+        LOGGER.info(BEAN_INITIALIZING + restTemplateBuilder.toString());
+        return restTemplateBuilder;
     }
 
     @Bean
-    public CacheManager cacheManager(){
-        return new ConcurrentMapCacheManager("cities");
+    public CacheManager cacheManager() {
+        ConcurrentMapCacheManager cacheManager = new ConcurrentMapCacheManager("cities");
+        LOGGER.info(BEAN_INITIALIZING + cacheManager);
+        LOGGER.info("Cache managers names: " + cacheManager.getCacheNames());
+        return cacheManager;
     }
 }

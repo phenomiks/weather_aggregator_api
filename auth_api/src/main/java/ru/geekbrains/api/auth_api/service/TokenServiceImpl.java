@@ -6,6 +6,7 @@ import ru.geekbrains.api.auth_api.model.Token;
 import ru.geekbrains.api.auth_api.model.User;
 import ru.geekbrains.api.auth_api.repository.TokenRepository;
 import ru.geekbrains.api.auth_api.service.interfaces.TokenService;
+import ru.geekbrains.api.auth_api.utils.GenericBuilder;
 
 import java.util.Set;
 
@@ -25,7 +26,12 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public Token saveToken(User user, String tokenValue) {
-        Token token = new Token(user, tokenValue);
+        Token token = GenericBuilder.of(Token::new)
+                .with(Token::setUser, user)
+                .with(Token::setTokenValue, tokenValue)
+                .build();
+
+//        Token token = new Token(user, tokenValue);
 
         return tokenRepository.save(token);
     }

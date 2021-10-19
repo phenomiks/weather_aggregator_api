@@ -10,4 +10,7 @@ public final class OpenWeatherRequestConstants {
     public static final String METRIC_QUERY_PARAM = "metric";
     public static final String LATITUDE = "lat";
     public static final String LONGITUDE = "lon";
+    public static final String EXCLUDE = "exclude";
+    public static final String MINUTELY = "minutely";
+    public static final String ALERTS = "alerts";
 }

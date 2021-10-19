@@ -1,5 +1,7 @@
 package ru.geekbrains.api.loader_api.domain;
 
+import java.util.Objects;
+
 public class City {
     private String name;
     private Double lon;
@@ -36,5 +38,27 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        City city = (City) o;
+        return name.equals(city.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "name='" + name + '\'' +
+                ", lon=" + lon +
+                ", lat=" + lat +
+                '}';
     }
 }

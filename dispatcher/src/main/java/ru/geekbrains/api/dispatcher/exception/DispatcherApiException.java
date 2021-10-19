@@ -1,16 +1,27 @@
 package ru.geekbrains.api.dispatcher.exception;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import ru.geekbrains.api.dispatcher.model.response.ErrorResponse;
 
 public class DispatcherApiException extends RuntimeException {
-    private final ObjectNode node;
 
-    public DispatcherApiException(String message, ObjectNode node) {
-        super(message);
-        this.node = node;
+    private final ErrorResponse response;
+
+    public DispatcherApiException(ErrorCode errorCode, String replaceText) {
+        super(errorCode + ". " + errorCode.replaceAndGetMessage(replaceText));
+        this.response = new ErrorResponse(errorCode, replaceText);
     }
 
-    public ObjectNode getNode() {
-        return node;
+    public DispatcherApiException(String message, ErrorCode errorCode, String replaceText) {
+        super(message);
+        this.response = new ErrorResponse(errorCode, replaceText);
+    }
+
+    public DispatcherApiException(String message, ErrorCode errorCode) {
+        super(message);
+        this.response = new ErrorResponse(errorCode, "");
+    }
+
+    public ErrorResponse getResponse() {
+        return response;
     }
 }

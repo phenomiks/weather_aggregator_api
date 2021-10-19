@@ -1,4 +1,4 @@
-package ru.geekbrains.api.data_api.application.utils;
+package ru.geekbrains.api.data_api.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -6,12 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Component;
-import ru.geekbrains.api.data_api.application.exception.DataApiException;
-import ru.geekbrains.api.data_api.application.exception.ErrorCode;
-import ru.geekbrains.api.data_api.request.DataParameters;
+import ru.geekbrains.api.data_api.exception.DataApiException;
+import ru.geekbrains.api.data_api.exception.ErrorCode;
+import ru.geekbrains.api.data_api.model.request.DataParameters;
 
 import java.util.ArrayList;
-
 
 @Component
 public class ValidateRequestUtils {

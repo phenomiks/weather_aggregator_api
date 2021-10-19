@@ -8,6 +8,8 @@ import ru.geekbrains.api.auth_api.exception.ErrorCode;
 import ru.geekbrains.api.auth_api.model.dto.UserKeysDto;
 import ru.geekbrains.api.auth_api.model.request.UserParams;
 import ru.geekbrains.api.auth_api.model.response.ErrorResponse;
+import ru.geekbrains.api.auth_api.service.interfaces.TokenService;
+import ru.geekbrains.api.auth_api.service.interfaces.UserService;
 import ru.geekbrains.api.auth_api.utils.JwtTokenUtil;
 import ru.geekbrains.api.auth_api.model.Token;
 import ru.geekbrains.api.auth_api.model.User;
@@ -25,12 +27,12 @@ import java.util.Set;
 public class UserTokenService implements UserServiceFacade {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserTokenService.class);
 
-    private final UserServiceImpl userService;
-    private final TokenServiceImpl tokenService;
+    private final UserService userService;
+    private final TokenService tokenService;
     private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public UserTokenService(UserServiceImpl userService, TokenServiceImpl tokenService,
+    public UserTokenService(UserService userService, TokenService tokenService,
                             JwtTokenUtil jwtTokenUtil) {
         this.userService = userService;
         this.tokenService = tokenService;

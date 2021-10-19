@@ -1,4 +1,4 @@
-package ru.geekbrains.api.data_api.request;
+package ru.geekbrains.api.data_api.model.request;
 
 import java.util.ArrayList;
 

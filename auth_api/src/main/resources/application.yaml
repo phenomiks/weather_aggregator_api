@@ -12,7 +12,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-
-request-number-fields:
-  register: 3
-  user-keys: 2
