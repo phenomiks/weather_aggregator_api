@@ -1,16 +1,13 @@
-package ru.geekbrains.api.data_api.application.exception;
+package ru.geekbrains.api.data_api.exception;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.geekbrains.api.data_api.application.utils.JsonResponseGenerator;
 import ru.geekbrains.api.data_api.model.response.ErrorResponse;
 import ru.geekbrains.api.data_api.model.response.Response;
-
 
 @ControllerAdvice
 public class WebExceptionHandler {

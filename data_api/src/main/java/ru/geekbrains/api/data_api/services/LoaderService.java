@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.api.data_api.application.exception.DataApiException;
-import ru.geekbrains.api.data_api.application.exception.ErrorCode;
-import ru.geekbrains.api.data_api.application.utils.JsonResponseGenerator;
+import ru.geekbrains.api.data_api.exception.DataApiException;
+import ru.geekbrains.api.data_api.exception.ErrorCode;
+import ru.geekbrains.api.data_api.utils.JsonResponseGenerator;
 import ru.geekbrains.api.data_api.model.WeatherService;
 import ru.geekbrains.api.data_api.model.response.ReportResponse;
-import ru.geekbrains.api.data_api.request.DataParameters;
+import ru.geekbrains.api.data_api.model.request.DataParameters;
 
 @Service
 public class LoaderService {

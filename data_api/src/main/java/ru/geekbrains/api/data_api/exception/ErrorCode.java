@@ -1,4 +1,4 @@
-package ru.geekbrains.api.data_api.application.exception;
+package ru.geekbrains.api.data_api.exception;
 
 public enum ErrorCode {
     JSON_ERROR(ErrorCode.REPLACE),

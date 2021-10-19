@@ -1,5 +1,4 @@
-package ru.geekbrains.api.data_api.application.exception;
-
+package ru.geekbrains.api.data_api.exception;
 
 import ru.geekbrains.api.data_api.model.response.ErrorResponse;
 

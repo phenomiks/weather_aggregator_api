@@ -1,6 +1,6 @@
 package ru.geekbrains.api.data_api.model.response;
 
-import ru.geekbrains.api.data_api.application.exception.ErrorCode;
+import ru.geekbrains.api.data_api.exception.ErrorCode;
 
 import java.io.Serializable;
 

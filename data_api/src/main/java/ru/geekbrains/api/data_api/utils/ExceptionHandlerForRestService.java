@@ -1,12 +1,10 @@
-package ru.geekbrains.api.data_api.application.utils;
+package ru.geekbrains.api.data_api.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpStatusCodeException;
-import ru.geekbrains.api.data_api.application.exception.DataApiException;
-import ru.geekbrains.api.data_api.application.exception.ErrorCode;
-
-
+import ru.geekbrains.api.data_api.exception.DataApiException;
+import ru.geekbrains.api.data_api.exception.ErrorCode;
 
 public class ExceptionHandlerForRestService {
 

@@ -1,9 +1,8 @@
-package ru.geekbrains.api.data_api.application.utils;
+package ru.geekbrains.api.data_api.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import ru.geekbrains.api.data_api.application.exception.ErrorCode;
-
+import ru.geekbrains.api.data_api.exception.ErrorCode;
 
 public class JsonResponseGenerator {
     public static ObjectNode generateSuccessResponseJson() {
