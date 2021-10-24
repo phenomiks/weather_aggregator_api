@@ -81,8 +81,17 @@ public class LoaderService {
             boolean isNullYandexWeather = responseReport.path(WeatherService.YANDEX_WEATHER.getName()).isNull();
             if (!isNullYandexWeather) {
                 JsonNode yandexWeather = responseReport.path(WeatherService.YANDEX_WEATHER.getName());
+                ObjectNode node = mapper.createObjectNode();
+                JsonNode fact = yandexWeather.path("fact");
+                JsonNode forecasts = yandexWeather.path("forecasts");
+                node.set("fact", fact);
+                node.set("day", forecasts.findPath("day"));
+                node.set("day_short", forecasts.findPath("day_short"));
+                node.set("night", forecasts.findPath("night"));
+                node.set("morning", forecasts.findPath("morning"));
+                node.set("evening", forecasts.findPath("evening"));
 
-                body.set(WeatherService.YANDEX_WEATHER.getName(), yandexWeather);
+                body.set(WeatherService.YANDEX_WEATHER.getName(), node);
             }
         }
 
