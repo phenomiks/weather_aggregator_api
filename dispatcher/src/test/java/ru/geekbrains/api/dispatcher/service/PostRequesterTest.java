@@ -6,11 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import ru.geekbrains.api.dispatcher.config.RestTemplateConfig;
 
 @SpringBootTest(classes = {PostRequester.class, RestTemplateConfig.class})
-@ActiveProfiles("test")
 public class PostRequesterTest {
 
     @Autowired

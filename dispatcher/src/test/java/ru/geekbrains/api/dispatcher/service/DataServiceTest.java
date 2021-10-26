@@ -12,14 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
 import ru.geekbrains.api.dispatcher.exception.ErrorCode;
 import ru.geekbrains.api.dispatcher.utils.TokenValidator;
 
 
 
 @SpringBootTest(classes = DataService.class)
-@ActiveProfiles("test")
 public class DataServiceTest {
 
     @Autowired

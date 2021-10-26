@@ -8,12 +8,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import ru.geekbrains.api.dispatcher.exception.ErrorCode;
 
 
 @SpringBootTest(classes = AuthService.class)
-@ActiveProfiles("test")
 public class AuthServiceTest {
 
     @Autowired
