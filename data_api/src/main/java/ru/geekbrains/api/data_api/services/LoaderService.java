@@ -15,6 +15,9 @@ import ru.geekbrains.api.data_api.model.WeatherService;
 import ru.geekbrains.api.data_api.model.response.ReportResponse;
 import ru.geekbrains.api.data_api.model.request.DataParameters;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class LoaderService {
     @Value("${loader.getWeather}")
@@ -81,8 +84,18 @@ public class LoaderService {
             boolean isNullYandexWeather = responseReport.path(WeatherService.YANDEX_WEATHER.getName()).isNull();
             if (!isNullYandexWeather) {
                 JsonNode yandexWeather = responseReport.path(WeatherService.YANDEX_WEATHER.getName());
+                ObjectNode node = mapper.createObjectNode();
+                JsonNode fact = yandexWeather.path("fact");
+                JsonNode forecasts = yandexWeather.path("forecasts");
+                node.set("fact", fact);
+                node.set("forecasts", forecasts);
+                while (node.findParent("hours") != null && node.findParent("night_short") != null && node.findParent("day_short") != null){
+                    node.findParent("hours").remove("hours");
+                    node.findParent("day_short").remove("day_short");
+                    node.findParent("night_short").remove("night_short");
+                }
 
-                body.set(WeatherService.YANDEX_WEATHER.getName(), yandexWeather);
+                body.set(WeatherService.YANDEX_WEATHER.getName(), node);
             }
         }
 
