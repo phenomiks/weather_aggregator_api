@@ -15,13 +15,16 @@ import java.util.ArrayList;
 @Component
 public class ValidateRequestUtils {
     public DataParameters validateGetWeatherParameters(ObjectNode parameters) {
-        int parametersCount = 2;
+        int parametersCount = 3;
         checkJsonFieldsCount(parameters, parametersCount);
 
         JsonNode cityField = checkJsonField(parameters, "city");
         JsonNode servicesField = checkJsonField(parameters, "services");
+        JsonNode needDetailedField = checkJsonField(parameters, "needDetailed");
 
         String city  = isStringJsonField(cityField);
+        isNullJsonField(needDetailedField,"needDetailed");
+        boolean needDetailed = isBooleanJsonField(needDetailedField, "needDetailed");
         isArrayJsonField(servicesField);
         isArrayJsonFieldNotEmpty(servicesField);
         isArrayStringJsonField(servicesField);
@@ -35,7 +38,7 @@ public class ValidateRequestUtils {
                     ErrorCode.JSON_VALIDATION_ERROR,
                     "Problem with format translation");
         }
-        return new DataParameters(city,services);
+        return new DataParameters(city,services,needDetailed);
     }
 
     private void checkJsonFieldsCount(ObjectNode parameters, int count) {
@@ -58,6 +61,19 @@ public class ValidateRequestUtils {
             return field.textValue();
         }
         throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, field + " value must be a string");
+    }
+
+    private static void isNullJsonField(JsonNode field, String fieldName) {
+        if (field.isNull()) {
+            throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, fieldName + " can't be Null");
+        }
+    }
+
+    private boolean isBooleanJsonField(JsonNode field, String fieldName) {
+        if (field.isBoolean()) {
+            return field.booleanValue();
+        }
+        throw new DataApiException(ErrorCode.JSON_VALIDATION_ERROR, fieldName + " value must be a boolean");
     }
 
     private static void isArrayJsonField(JsonNode field) {

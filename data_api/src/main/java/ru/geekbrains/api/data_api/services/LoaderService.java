@@ -15,14 +15,15 @@ import ru.geekbrains.api.data_api.model.WeatherService;
 import ru.geekbrains.api.data_api.model.response.ReportResponse;
 import ru.geekbrains.api.data_api.model.request.DataParameters;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class LoaderService {
     @Value("${loader.getWeather}")
     private String url;
-
     private final RestService restService;
 
     @Autowired
@@ -31,6 +32,7 @@ public class LoaderService {
     }
 
     public ResponseEntity<ObjectNode> loaderWeather(DataParameters dataParameters){
+        boolean detailed = dataParameters.needDetailed();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.valueToTree(dataParameters);
         ResponseEntity<ObjectNode> responseEntity = restService.doPost(jsonNode, url);
@@ -38,6 +40,9 @@ public class LoaderService {
             throw new DataApiException("Connection time out ",
                     ErrorCode.CONNECTION_REFUSED,
                     "Connection time out");
+        }
+        if (detailed) {
+           return responseEntity;
         }
 
         return checkResponseStatus(responseEntity);
@@ -106,4 +111,5 @@ public class LoaderService {
         ObjectNode report = JsonResponseGenerator.generateReportResponseJson(body);
         return ResponseEntity.ok(report);
     }
+
 }
