@@ -55,7 +55,8 @@ public class GeocodingLoaderServiceImpl implements GeoLoaderService {
                 .queryParam(API_KEY_QUERY_PARAM, API_KEY)
                 .queryParam(CITY_NAME_QUERY_PARAM, cityName)
                 .build();
-        Optional<City[]> answer = Optional.ofNullable(restTemplate.getForObject(urlBuilder.toUriString(), City[].class));
+
+        Optional<City[]> answer = getForObject(urlBuilder.toUriString());
         if (answer.isPresent()) {
             if (answer.get().length > 0) {
                 LOGGER.info("Response: " + answer.get()[0].toString());
@@ -92,5 +93,9 @@ public class GeocodingLoaderServiceImpl implements GeoLoaderService {
 
     public Optional<City> getResponse(ObjectNode objectNode) {
         return Optional.ofNullable(getCity(objectNode.get("city").asText()));
+    }
+
+    private Optional<City[]> getForObject(String url) {
+        return Optional.ofNullable(restTemplate.getForObject(url, City[].class));
     }
 }
