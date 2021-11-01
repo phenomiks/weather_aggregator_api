@@ -15,6 +15,6 @@ public interface FrontController {
     @GetMapping(value = "/api-page")
     String getApiPage();
 
-    @GetMapping(value = "/get-weather")
+    @GetMapping(value = "/getWeather")
     String getWeather(@RequestParam(value = "city", required = false) String city);
 }
