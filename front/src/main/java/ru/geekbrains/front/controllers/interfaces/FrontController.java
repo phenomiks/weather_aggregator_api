@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RequestMapping(value = "/api/v1/front-weather")
+@RequestMapping(value = "/front-weather")
 public interface FrontController {
 
 

@@ -11,7 +11,7 @@ import java.time.Duration;
 @Configuration
 public class RestTemplateConfig {
 
-    @Value("${front.timeout}")
+    @Value("${dispatcher.timeout}")
     int timeout;
 
     @Bean

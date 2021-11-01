@@ -28,12 +28,12 @@ public class FrontControllerImpl implements FrontController {
         this.restTemplate = restTemplate;
     }
 
-    //    http://localhost:8095/api/v1/front-weather/index
+    //    http://localhost:8095/front-weather/index
     public String getIndexPage() {
         return "index";
     }
 
-//    http://localhost:8095/api/v1/front-weather/api-page
+//    http://localhost:8095/front-weather/api-page
     public String getApiPage(){
         return "api";
     }
