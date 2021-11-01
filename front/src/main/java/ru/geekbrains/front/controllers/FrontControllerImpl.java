@@ -52,7 +52,7 @@ public class FrontControllerImpl implements FrontController {
         System.out.println(objectNode);
         System.out.println(restTemplate.postForEntity("http://localhost:8090/api/v1/dispatcher/get-weather", objectNode, ObjectNode.class));
 
-        return "weather";
+        return "index";
     }
 
     private String getKey(){
