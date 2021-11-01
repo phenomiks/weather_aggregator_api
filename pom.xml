@@ -16,5 +16,6 @@
         <module>data_api</module>
         <module>dispatcher</module>
         <module>loader_api</module>
+        <module>front</module>
     </modules>
 </project>
