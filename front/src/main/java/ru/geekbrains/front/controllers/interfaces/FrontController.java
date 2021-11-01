@@ -10,18 +10,11 @@ public interface FrontController {
 
 
     @GetMapping(value = "/index")
-    String index();
+    String getIndexPage();
 
     @GetMapping(value = "/api-page")
     String getApiPage();
 
-    @PostMapping(value = "/get-weather")
+    @GetMapping(value = "/get-weather")
     String getWeather(@RequestParam(value = "city", required = false) String city);
-//
-//    @PostMapping(value = "/register")
-//    ResponseEntity<?> registerUser(@RequestBody ObjectNode json);
-//
-//    @PostMapping(value = "/get-weather")
-//    ResponseEntity<?> getWeather(@RequestBody ObjectNode json);
-
 }

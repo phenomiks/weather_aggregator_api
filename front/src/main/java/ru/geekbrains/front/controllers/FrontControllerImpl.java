@@ -10,16 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import ru.geekbrains.front.controllers.interfaces.FrontController;
 
 import java.util.Arrays;
 
 @Controller
 @RequestMapping("/api/v1/front-weather")
-public class FrontControllerImpl {
+public class FrontControllerImpl implements FrontController {
 
     private final RestTemplate restTemplate;
     @Value("${dispatcherApi.getWeather}")
     private String dispatcherWeatherUrl;
+    @Value("${key}")
+    private String secureKey;
 
     @Autowired
     public FrontControllerImpl(RestTemplate restTemplate) {
@@ -57,7 +60,7 @@ public class FrontControllerImpl {
     }
 
     private String getKey(){
-        return "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MiIsImlhdCI6MTYzNTc3MjU4MCwiZXhwIjoxNjM1Nzc4NTgwfQ.eU1aSpm75h2TImxgGpl2EsRFSbFnnxSEoaV4xCJuLHM";
+        return secureKey;
     }
 
 }
