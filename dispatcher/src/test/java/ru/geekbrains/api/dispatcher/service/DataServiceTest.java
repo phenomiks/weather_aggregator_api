@@ -53,8 +53,9 @@ public class DataServiceTest {
         try {
             dataService.getWeather(json, key);
             Assertions.fail("Expected RuntimeException");
-        } catch (RuntimeException thrown) {
-            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(), thrown.getMessage());
+        } catch (RuntimeException exception) {
+            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(),
+                    exception.getMessage());
         }
     }
 
@@ -72,7 +73,8 @@ public class DataServiceTest {
         dataService.getWeather(json, key);
 
         ArgumentCaptor requestCaptor = ArgumentCaptor.forClass(ObjectNode.class);
-        Mockito.verify(postRequester, Mockito.times(1)).doPost((ObjectNode) requestCaptor.capture(), Mockito.any());
+        Mockito.verify(postRequester, Mockito.times(1))
+                .doPost((ObjectNode) requestCaptor.capture(), Mockito.any());
         ObjectNode capturedArgument = (ObjectNode) requestCaptor.getValue();
         Assertions.assertFalse(capturedArgument.has("key"));
     }
