@@ -35,7 +35,7 @@
 
     <div class="body" style="min-height: calc(100vh - 157px);">
         <div class="container">
-            <form th:action="@{/api/v1/front-weather/get-weather}" th:method="get">
+            <form th:action="@{/api/v1/front-weather/get-weather}" th:method="GET">
                 <div class="mb-3">
                     <label for="city" class="form-label">City</label>
                     <input type="text" th:name="city" class="form-control" id="city" name="city">

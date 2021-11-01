@@ -15,7 +15,6 @@ import ru.geekbrains.front.controllers.interfaces.FrontController;
 import java.util.Arrays;
 
 @Controller
-@RequestMapping("/api/v1/front-weather")
 public class FrontControllerImpl implements FrontController {
 
     private final RestTemplate restTemplate;
@@ -30,18 +29,15 @@ public class FrontControllerImpl implements FrontController {
     }
 
     //    http://localhost:8095/api/v1/front-weather/index
-    @GetMapping(value = "/index")
     public String getIndexPage() {
         return "index";
     }
 
 //    http://localhost:8095/api/v1/front-weather/api-page
-    @GetMapping(value = "/api-page")
     public String getApiPage(){
         return "api";
     }
 
-    @GetMapping(value = "/get-weather")
     public String getWeather(@RequestParam(value = "city", required = false) String city) {
 //        System.out.println(city);
 //        WeatherRequestForm request = new WeatherRequestForm(city, new String[]{"openweather", "yandexweather"}, false, "asdavxcv4sdfvx.asdas32rsdfxvxc.asdsdfdsfd");
