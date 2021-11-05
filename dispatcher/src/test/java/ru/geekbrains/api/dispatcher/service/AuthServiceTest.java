@@ -35,8 +35,9 @@ public class AuthServiceTest {
         try {
             authService.registerUser(json);
             Assertions.fail("Expected RuntimeException");
-        } catch (RuntimeException thrown) {
-            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(), thrown.getMessage());
+        } catch (RuntimeException exception) {
+            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(),
+                    exception.getMessage());
         }
     }
 
@@ -54,8 +55,9 @@ public class AuthServiceTest {
         try {
             authService.getNewKey(json);
             Assertions.fail("Expected RuntimeException");
-        } catch (RuntimeException thrown) {
-            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(), thrown.getMessage());
+        } catch (RuntimeException exception) {
+            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(),
+                    exception.getMessage());
         }
     }
 
@@ -73,8 +75,9 @@ public class AuthServiceTest {
         try {
             authService.getUserKeys(json);
             Assertions.fail("Expected RuntimeException");
-        } catch (RuntimeException thrown) {
-            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(), thrown.getMessage());
+        } catch (RuntimeException exception) {
+            Assertions.assertEquals("CONNECTION_REFUSED. " + ErrorCode.CONNECTION_REFUSED.getMessage(),
+                    exception.getMessage());
         }
     }
 }
