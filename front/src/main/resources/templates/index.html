@@ -35,9 +35,9 @@
 
     <div class="body wapi-body">
         <div class="container">
-            <form class="container-sm wapi-search" th:action="@{/getWeather}" th:method="GET">
+            <form class="container-sm wapi-search" th:action="@{/weather}" th:method="POST">
                 <div class="mb-3 wapi-search-input">
-                    <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                    <input type="text" class="form-control" name="city" placeholder="City">
                 </div>
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>

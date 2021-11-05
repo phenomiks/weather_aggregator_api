@@ -28,8 +28,9 @@ public class FrontControllerImpl implements FrontController {
     }
 
     @Override
-    public String getWeather(String city, Model model) {
-        if (city == null || city.isBlank()) {
+    public String requestWeather(String cityParam, Model model) {
+        String city = cityParam.substring(cityParam.indexOf("=") + 1);
+        if (city.isBlank()) {
             return "redirect:/";
         }
 

@@ -2,7 +2,8 @@ package ru.geekbrains.front.contoller.interfaces;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 public interface FrontController {
     @GetMapping(value = "/")
@@ -11,6 +12,6 @@ public interface FrontController {
     @GetMapping(value = "/api")
     String getApiPage();
 
-    @GetMapping(value = "/getWeather")
-    String getWeather(@RequestParam(value = "city") String city, Model model);
+    @PostMapping(value = "/weather")
+    String requestWeather(@RequestBody String cityParam, Model model);
 }
