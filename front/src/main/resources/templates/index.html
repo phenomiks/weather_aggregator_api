@@ -57,13 +57,13 @@
                             <br>
                             <div class="card">
                                 <div class="wapi-card-temp">
-                                    <h1>+12 ºC</h1>
-                                    <p>Rain</p>
+                                    <h1 th:text="${openweather == null ? '' : openweather.currentTemperature}"></h1>
+                                    <p th:text="${openweather == null ? '' : openweather.currentCondition}"></p>
                                 </div>
                                 <ul class="current-other-params">
-                                    <li class="list li-wind">5 m/s</li>
-                                    <li class="list li-humidity">91 %</li>
-                                    <li class="list li-pressure">760 mm Hg</li>
+                                    <li class="list li-wind" th:text="${openweather == null ? '' : openweather.currentWindSpeed}"></li>
+                                    <li class="list li-humidity" th:text="${openweather == null ? '' : openweather.currentHumidity}"></li>
+                                    <li class="list li-pressure" th:text="${openweather == null ? '' : openweather.currentPressure}"></li>
                                 </ul>
                             </div>
                             <table class="table table-borderless wapi-table">
@@ -72,7 +72,7 @@
                                     <td></td>
                                     <td>Temp,<br>ºC</td>
                                     <td>Condition<br></td>
-                                    <td>Pressure,<br>mm Hg</td>
+                                    <td>Pressure,<br>hPa</td>
                                     <td>Humidity,<br>%</td>
                                     <td>Wind,<br>m/s</td>
                                     <td>Feels like,<br>ºC</td>
@@ -81,12 +81,39 @@
                                 <tbody>
                                 <tr>
                                     <td>Morning</td>
-                                    <td>+12</td>
-                                    <td>Rain</td>
-                                    <td>753</td>
-                                    <td>91</td>
-                                    <td>5</td>
-                                    <td>+6</td>
+                                    <td th:text="${openweather == null ? '' : openweather.morningTemperature}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyCondition}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyPressure}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyHumidity}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyWindSpeed}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.feelMorningTemperature}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Day</td>
+                                    <td th:text="${openweather == null ? '' : openweather.dayTemperature}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyCondition}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyPressure}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyHumidity}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyWindSpeed}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.feelDayTemperature}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Evening</td>
+                                    <td th:text="${openweather == null ? '' : openweather.eveningTemperature}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyCondition}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyPressure}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyHumidity}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyWindSpeed}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.feelEveningTemperature}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Night</td>
+                                    <td th:text="${openweather == null ? '' : openweather.nightTemperature}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyCondition}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyPressure}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyHumidity}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.dailyWindSpeed}"></td>
+                                    <td th:text="${openweather == null ? '' : openweather.feelNightTemperature}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -104,13 +131,13 @@
                             <br>
                             <div class="card">
                                 <div class="wapi-card-temp">
-                                    <h1>+12 ºC</h1>
-                                    <p>Rain</p>
+                                    <h1 th:text="${yandexweather == null ? '' : yandexweather.currentTemperature}"></h1>
+                                    <p th:text="${yandexweather == null ? '' : yandexweather.currentCondition}"></p>
                                 </div>
                                 <ul class="current-other-params">
-                                    <li class="list li-wind">5 m/s</li>
-                                    <li class="list li-humidity">91 %</li>
-                                    <li class="list li-pressure">760 mm Hg</li>
+                                    <li class="list li-wind" th:text="${yandexweather == null ? '' : yandexweather.currentWindSpeed}"></li>
+                                    <li class="list li-humidity" th:text="${yandexweather == null ? '' : yandexweather.currentHumidity}"></li>
+                                    <li class="list li-pressure" th:text="${yandexweather == null ? '' : yandexweather.currentPressure}"></li>
                                 </ul>
                             </div>
                             <table class="table table-borderless wapi-table">
@@ -128,12 +155,39 @@
                                 <tbody>
                                 <tr>
                                     <td>Morning</td>
-                                    <td>+12</td>
-                                    <td>Rain</td>
-                                    <td>753</td>
-                                    <td>91</td>
-                                    <td>5</td>
-                                    <td>+6</td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.morningTemperature}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.morningCondition}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.morningPressure}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.morningHumidity}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.morningWindSpeed}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.feelMorningTemperature}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Day</td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.dayTemperature}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.dayCondition}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.dayPressure}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.dayHumidity}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.dayWindSpeed}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.feelDayTemperature}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Evening</td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.eveningTemperature}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.eveningCondition}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.eveningPressure}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.eveningHumidity}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.eveningWindSpeed}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.feelEveningTemperature}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Night</td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.nightTemperature}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.nightCondition}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.nightPressure}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.nightHumidity}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.nightWindSpeed}"></td>
+                                    <td th:text="${yandexweather == null ? '' : yandexweather.feelNightTemperature}"></td>
                                 </tr>
                                 </tbody>
                             </table>
