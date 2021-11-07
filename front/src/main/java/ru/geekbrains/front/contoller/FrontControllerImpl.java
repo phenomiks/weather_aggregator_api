@@ -1,5 +1,6 @@
 package ru.geekbrains.front.contoller;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ public class FrontControllerImpl implements FrontController {
 
     @Override
     public String getIndexPage(Model model) {
-        model.addAttribute("test", new WeatherResponse("sunny", "rain")); // TODO test object
+//        model.addAttribute("test", new WeatherResponse("sunny", "rain")); // TODO test object
         return "index";
     }
 
@@ -34,9 +35,10 @@ public class FrontControllerImpl implements FrontController {
             return "redirect:/";
         }
 
-        dispatcherService.getWeather(city);
+        ObjectNode response = dispatcherService.getWeather(city);
 
-        model.addAttribute("test", new WeatherResponse("sunny", "rain")); // TODO test object
+        model.addAttribute("openweather", new WeatherResponse().owResponse(response));
+        model.addAttribute("yandexweather", new WeatherResponse().ywResponse(response));
 
         return "index";
     }
