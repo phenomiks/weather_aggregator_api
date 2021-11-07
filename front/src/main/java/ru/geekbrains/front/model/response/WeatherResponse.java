@@ -1,19 +1,18 @@
 package ru.geekbrains.front.model.response;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 public class WeatherResponse {
-    private final String firstField;
-    private final String secondField;
 
-    public WeatherResponse(String firstField, String secondField) {
-        this.firstField = firstField;
-        this.secondField = secondField;
+    public OpenweatherEntity owResponse(ObjectNode json){
+        OpenweatherEntity openweather = new OpenweatherEntity(json);
+        openweather.fillWeatherEntity();
+        return openweather;
     }
 
-    public String getFirstField() {
-        return firstField;
-    }
-
-    public String getSecondField() {
-        return secondField;
+    public YandexweatherEntity ywResponse(ObjectNode json){
+        YandexweatherEntity yandexweather = new YandexweatherEntity(json);
+        yandexweather.fillWeatherEntity();
+        return yandexweather;
     }
 }
