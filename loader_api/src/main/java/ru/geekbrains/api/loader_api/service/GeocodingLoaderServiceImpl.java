@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.geekbrains.api.loader_api.domain.City;
 import ru.geekbrains.api.loader_api.exception.CityNotFoundException;
+import ru.geekbrains.api.loader_api.exception.LoaderApiException;
 import ru.geekbrains.api.loader_api.exception.RequiredParamNotFound;
 
 import java.util.Objects;
@@ -42,7 +43,7 @@ public class GeocodingLoaderServiceImpl implements GeoLoaderService {
         this.restTemplate = builder.build();
     }
 
-    public City getCity(String cityName) {
+    public City getCity(String cityName) throws CityNotFoundException {
         City city = findInCacheCity(cityName);
 
         if (city != null) {
@@ -91,7 +92,7 @@ public class GeocodingLoaderServiceImpl implements GeoLoaderService {
         }
     }
 
-    public Optional<City> getResponse(ObjectNode objectNode) {
+    public Optional<City> getResponse(ObjectNode objectNode) throws CityNotFoundException {
         return Optional.ofNullable(getCity(objectNode.get("city").asText()));
     }
 
