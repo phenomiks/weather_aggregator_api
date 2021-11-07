@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import ru.geekbrains.front.contoller.interfaces.FrontController;
-import ru.geekbrains.front.model.response.WeatherResponse;
 import ru.geekbrains.front.service.interfaces.DispatcherService;
+import ru.geekbrains.front.utils.OpenWeatherUtils;
+import ru.geekbrains.front.utils.YandexWeatherUtils;
 
 @Controller
 public class FrontControllerImpl implements FrontController {
@@ -19,7 +20,6 @@ public class FrontControllerImpl implements FrontController {
 
     @Override
     public String getIndexPage(Model model) {
-//        model.addAttribute("test", new WeatherResponse("sunny", "rain")); // TODO test object
         return "index";
     }
 
@@ -36,9 +36,12 @@ public class FrontControllerImpl implements FrontController {
         }
 
         ObjectNode response = dispatcherService.getWeather(city);
+        if (response == null) {
+            return "redirect:/";
+        }
 
-        model.addAttribute("openweather", new WeatherResponse().owResponse(response));
-        model.addAttribute("yandexweather", new WeatherResponse().ywResponse(response));
+        model.addAttribute("openweather", OpenWeatherUtils.fillWeatherEntity(response));
+        model.addAttribute("yandexweather", YandexWeatherUtils.fillWeatherEntity(response));
 
         return "index";
     }
