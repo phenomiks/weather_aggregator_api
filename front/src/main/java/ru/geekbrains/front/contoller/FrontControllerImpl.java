@@ -1,11 +1,13 @@
 package ru.geekbrains.front.contoller;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import ru.geekbrains.front.contoller.interfaces.FrontController;
-import ru.geekbrains.front.model.response.WeatherResponse;
 import ru.geekbrains.front.service.interfaces.DispatcherService;
+import ru.geekbrains.front.utils.OpenWeatherUtils;
+import ru.geekbrains.front.utils.YandexWeatherUtils;
 
 @Controller
 public class FrontControllerImpl implements FrontController {
@@ -18,7 +20,6 @@ public class FrontControllerImpl implements FrontController {
 
     @Override
     public String getIndexPage(Model model) {
-        model.addAttribute("test", new WeatherResponse("sunny", "rain")); // TODO test object
         return "index";
     }
 
@@ -28,14 +29,19 @@ public class FrontControllerImpl implements FrontController {
     }
 
     @Override
-    public String getWeather(String city, Model model) {
-        if (city == null || city.isBlank()) {
+    public String requestWeather(String cityParam, Model model) {
+        String city = cityParam.substring(cityParam.indexOf("=") + 1);
+        if (city.isBlank()) {
             return "redirect:/";
         }
 
-        dispatcherService.getWeather(city);
+        ObjectNode response = dispatcherService.getWeather(city);
+        if (response == null) {
+            return "redirect:/";
+        }
 
-        model.addAttribute("test", new WeatherResponse("sunny", "rain")); // TODO test object
+        model.addAttribute("openweather", OpenWeatherUtils.fillWeatherEntity(response));
+        model.addAttribute("yandexweather", YandexWeatherUtils.fillWeatherEntity(response));
 
         return "index";
     }

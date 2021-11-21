@@ -9,10 +9,12 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{/css/index.css}">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg navbar-light wapi-nav">
         <div class="container">
             <a class="navbar-brand" href="/">Weather Aggregator API</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,12 +33,11 @@
         </div>
     </nav>
 
-    <div class="body" style="min-height: calc(100vh - 157px);">
+    <div class="body wapi-body">
         <div class="container">
-            <form th:action="@{/getWeather}" th:method="GET">
-                <div class="mb-3">
-                    <label for="city" class="form-label">City</label>
-                    <input type="text" class="form-control" id="city" name="city">
+            <form class="container-sm wapi-search" th:action="@{/weather}" th:method="POST">
+                <div class="mb-3 wapi-search-input">
+                    <input type="text" class="form-control" name="city" placeholder="City">
                 </div>
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
@@ -47,24 +48,95 @@
                 <div class="row gx-5">
                     <div class="col">
                         <div class="p-3 border bg-light">
-                            <img src="../static/images/openWeather-logo.png" class="img-fluid" alt="OpenWeather"
-                                 width="50" height="50"
-                                 th:src="@{images/openWeather-logo.png}">
-                            OpenWeather
+                            <div class="wapi-services-logo">
+                                <img src="../static/images/openWeather-logo.png"
+                                     class="img-fluid wapi-img-logo" alt="OpenWeather"
+                                     th:src="@{images/openWeather-logo.png}">
+                                OpenWeather
+                            </div>
                             <br>
-                            <br>
-                            <p th:text="'Current: ' + ${test.firstField}"/>
+                            <div class="card">
+                                <div class="wapi-card-temp" th:if="${openweather != null}">
+                                    <h1 th:text="${openweather.currentWeather.temperature > 0 ? '+' + openweather.currentWeather.temperature + ' ºC' : openweather.currentWeather.temperature + ' ºC'}"></h1>
+                                    <p th:text="${openweather.currentWeather.condition}"></p>
+                                </div>
+                                <ul class="current-other-params" th:if="${openweather != null}">
+                                    <li class="list li-wind" th:text="${openweather.currentWeather.windSpeed + ' m/s'}"></li>
+                                    <li class="list li-humidity" th:text="${openweather.currentWeather.humidity + ' %'}"></li>
+                                    <li class="list li-pressure" th:text="${openweather.currentWeather.pressure + ' mm Hg'}"></li>
+                                </ul>
+                            </div>
+                            <table class="table table-borderless wapi-table">
+                                <thead>
+                                <tr class="wapi-table-thead">
+                                    <td></td>
+                                    <td>Temp,<br>ºC</td>
+                                    <td>Condition<br></td>
+                                    <td>Pressure,<br>hPa</td>
+                                    <td>Humidity,<br>%</td>
+                                    <td>Wind,<br>m/s</td>
+                                    <td>Feels like,<br>ºC</td>
+                                </tr>
+                                </thead>
+                                <tbody th:if="${openweather != null}">
+                                <tr th:each="instance : ${openweather.dayWeather}">
+                                    <td th:text="${instance.key}"></td>
+                                    <td th:text="${instance.value.temperature > 0 ? '+' + instance.value.temperature : instance.value.temperature}"></td>
+                                    <td th:text="${instance.value.condition}"></td>
+                                    <td th:text="${instance.value.pressure}"></td>
+                                    <td th:text="${instance.value.humidity}"></td>
+                                    <td th:text="${instance.value.windSpeed}"></td>
+                                    <td th:text="${instance.value.feelTemperature > 0 ? '+' + instance.value.feelTemperature : instance.value.feelTemperature}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
                     <div class="col">
                         <div class="p-3 border bg-light">
-                            <img src="../static/images/yandexWeather-logo.png" class="img-fluid" alt="OpenWeather"
-                                 width="50" height="50"
-                                 th:src="@{images/yandexWeather-logo.png}">
-                            Yandex.Weather
+                            <div class="wapi-services-logo">
+                                <img src="../static/images/yandexWeather-logo.png"
+                                     class="img-fluid wapi-img-logo" alt="OpenWeather"
+                                     th:src="@{images/yandexWeather-logo.png}">
+                                Yandex.Weather
+                            </div>
                             <br>
-                            <br>
-                            <p th:text="'Current: ' + ${test.secondField}"/>
+                            <div class="card">
+                                <div class="wapi-card-temp" th:if="${yandexweather != null}">
+                                    <h1 th:text="${yandexweather.currentWeather.temperature > 0 ? '+' + yandexweather.currentWeather.temperature + ' ºC' : yandexweather.currentWeather.temperature + ' ºC'}"></h1>
+                                    <p th:text="${yandexweather.currentWeather.condition}"></p>
+                                </div>
+                                <ul class="current-other-params" th:if="${yandexweather != null}">
+                                    <li class="list li-wind" th:text="${yandexweather.currentWeather.windSpeed + ' m/s'}"></li>
+                                    <li class="list li-humidity" th:text="${yandexweather.currentWeather.humidity + ' %'}"></li>
+                                    <li class="list li-pressure" th:text="${yandexweather.currentWeather.pressure + ' mm Hg'}"></li>
+                                </ul>
+                            </div>
+                            <table class="table table-borderless wapi-table">
+                                <thead>
+                                <tr class="wapi-table-thead">
+                                    <td></td>
+                                    <td>Temp,<br>ºC</td>
+                                    <td>Condition<br></td>
+                                    <td>Pressure,<br>mm Hg</td>
+                                    <td>Humidity,<br>%</td>
+                                    <td>Wind,<br>m/s</td>
+                                    <td>Feels like,<br>ºC</td>
+                                </tr>
+                                </thead>
+                                <tbody th:if="${yandexweather != null}">
+                                <tr th:each="instance : ${yandexweather.dayWeather}">
+                                    <td th:text="${instance.key}"></td>
+                                    <td th:text="${instance.value.temperature > 0 ? '+' + instance.value.temperature : instance.value.temperature}"></td>
+                                    <td th:text="${instance.value.condition}"></td>
+                                    <td th:text="${instance.value.pressure}"></td>
+                                    <td th:text="${instance.value.humidity}"></td>
+                                    <td th:text="${instance.value.windSpeed}"></td>
+                                    <td th:text="${instance.value.feelTemperature > 0 ? '+' + instance.value.feelTemperature : instance.value.feelTemperature}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -72,10 +144,9 @@
         </div>
     </div>
 
-    <div class="footer" style="background-color: #e3f2fd;">
+    <div class="footer wapi-div-footer">
         <div class="container">
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top"
-                    style="height: 80px; margin-top: 20px">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top wapi-footer">
                 <p class="col-md-4 mb-0 text-muted">&copy; 2021 Weather Aggregator API</p>
                 <ul class="nav col-md-4 justify-content-end">
                     <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
