@@ -1,0 +1,70 @@
+.wapi-nav {
+    background-color: #e3f2fd;
+}
+
+.wapi-body {
+    min-height: calc(100vh - 157px);
+}
+
+.wapi-search {
+    max-width: 600px;
+    text-align: center;
+}
+
+.wapi-search-input {
+    margin-top: 30px;
+}
+
+.wapi-services-logo {
+    text-align: center;
+}
+
+.wapi-img-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.wapi-card-temp {
+    text-align: center;
+}
+
+.current-other-params {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list {
+    background-repeat: no-repeat;
+    padding: 0 32px;
+    display: inline;
+}
+
+.li-wind {
+    background-image: url('../images/ic_wind.svg');
+}
+
+.li-humidity {
+    background-image: url('../images/ic_humidity.svg');
+}
+
+.li-pressure {
+    background-image: url('../images/ic_pressure.svg');
+}
+
+.wapi-table {
+    text-align: center;
+}
+
+.wapi-table-thead {
+    vertical-align: middle;
+}
+
+.wapi-div-footer {
+    background-color: #e3f2fd;
+}
+
+.wapi-footer {
+    height: 80px;
+    margin-top: 20px;
+}
